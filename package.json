@@ -1,0 +1,19 @@
+{
+  "name": "a99-rigel",
+  "version": "1.0.0",
+  "description": "You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comp426-2022-spring/a99-rigel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/comp426-2022-spring/a99-rigel/issues"
+  },
+  "homepage": "https://github.com/comp426-2022-spring/a99-rigel#readme"
+}
