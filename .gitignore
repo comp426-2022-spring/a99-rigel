@@ -105,3 +105,5 @@ dist
 
 
 .DS_Store
+client/build/
+package-lock.json
