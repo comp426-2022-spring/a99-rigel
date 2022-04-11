@@ -29,6 +29,24 @@ MongoClient.connect(uri, function(err, database) {
   listDatabases(database);
 });
 
+// Get all users (testing mongodb request)
+// @max Whats the format to get one user?
+app.get("/users", async (req, res) => {
+  const db  = await app.locals.db.db("web")
+  //console.log(db)
+  const users = await db.collection("user").find({user_name: "mike"});
+  console.log(users)
+  //let users = app.locals.db.collection("user")
+  // users.find().toArray((err, items) => {
+  //   if(err) {
+  //     console.log(err)
+  //     res.status(500).json({err:err})
+  //     return
+  //   }
+  //   res.status(200).json({users: items})
+  // })
+})
+
 
 // Get all surveys (Home screen request)
 
