@@ -1,22 +1,40 @@
 {
-  "name": "a99-rigel",
-  "version": "1.0.0",
-  "description": "You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/comp426-2022-spring/a99-rigel.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/comp426-2022-spring/a99-rigel/issues"
-  },
-  "homepage": "https://github.com/comp426-2022-spring/a99-rigel#readme",
+  "name": "a99-rigel-frontend",
+  "description": "frontend of the public health survey website",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "express": "^4.17.3"
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^4.1.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "5.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
