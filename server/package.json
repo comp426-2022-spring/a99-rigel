@@ -4,11 +4,12 @@
   "description": "backend of the public survey website",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest"
   },
-  "author": "",
+  "author": "rigel",
   "license": "GPL-3.0-or-later",
+  "type": "module",
   "dependencies": {
     "express": "^4.17.3",
     "mongodb": "^4.5.0"

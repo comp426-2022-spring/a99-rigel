@@ -1,62 +1,36 @@
-const express = require("express")
+import express from "express";
+import http from 'http';
+
+import router from './routes/main.js';
+import setDB from './db.js';
+
 const app = express()
-const { MongoClient } = require('mongodb');
 const PORT = process.env.PORT || 5000;
+
+setDB(app);
+app.set('port', PORT);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
-
-// Make connection with mongoDB database
-const uri = "mongodb+srv://rigel:q8rkIGoga1xafGmN@cluster0.l7bmq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-// sanity check by listing all collection names
-async function listDatabases(client){
-    databasesList = await client.db().admin().listDatabases();
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
-
-// Initialize connection once
-MongoClient.connect(uri, function(err, database) {
-  if(err) throw err;
-  app.locals.db = database;
-  listDatabases(database);
-});
-
-
-// Get all surveys (Home screen request)
-
-// Add a survey to database (Create Survey Screen submission)
-
-
-// Get all of the surveys the user has created (My surveys screen request)
-
-// Get all the responses from a particular survey created by a particular user (Specific survey resposnes screen)
-
-// Add a response to an existing survey (Filling out Survey screen submission)
-
+app.use('/', router);
 
 // cleanup all database connections on EXIT
 function cleanup () {
-  app.locals.db.close();
-  process.exit();
+  console.log("\nStart to clean up...");
+  app.get('db_connection').close(() => {
+    console.log("Database connection closed.");
+    process.exit();
+  });
 
   setTimeout( function () {
     console.error("Could not close connections in time, forcing shut down");
     process.exit(1);
     }, 30*1000);
 }
-
+// register to system signals
 process.on('SIGINT', cleanup);
 process.on('SIGTERM', cleanup);
 
-
-// Start the server to listen to the PROT
-app.listen(PORT);
-console.log(`Server running on port ${PORT}`);
+app.set('server', http.createServer(app));
+app.get('server').listen(PORT, () => console.log(`Server started on http://localhost:${PORT} successfully...`));
+export default app;
