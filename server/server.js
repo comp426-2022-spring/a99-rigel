@@ -1,17 +1,32 @@
-var express = require("express")
-var app = express()
+const express = require("express")
+const app = express()
+const { MongoClient } = require('mongodb');
+const PORT = process.env.PORT || 5000;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
+
 // Make connection with mongoDB database
+const uri = "mongodb+srv://rigel:q8rkIGoga1xafGmN@cluster0.l7bmq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-// Start server
+// sanity check by listing all collection names
+async function listDatabases(client){
+    databasesList = await client.db().admin().listDatabases();
+    console.log("Databases:");
+    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
+};
 
-var HTTP_PORT = 5000
-
-app.listen(HTTP_PORT, () => {
-    console.log("Server running on port %PORT%".replace("%PORT%", HTTP_PORT))
+// Initialize connection once
+MongoClient.connect(uri, function(err, database) {
+  if(err) throw err;
+  app.locals.db = database;
+  listDatabases(database);
 });
 
 
@@ -27,5 +42,21 @@ app.listen(HTTP_PORT, () => {
 // Add a response to an existing survey (Filling out Survey screen submission)
 
 
+// cleanup all database connections on EXIT
+function cleanup () {
+  app.locals.db.close();
+  process.exit();
+
+  setTimeout( function () {
+    console.error("Could not close connections in time, forcing shut down");
+    process.exit(1);
+    }, 30*1000);
+}
+
+process.on('SIGINT', cleanup);
+process.on('SIGTERM', cleanup);
 
 
+// Start the server to listen to the PROT
+app.listen(PORT);
+console.log(`Server running on port ${PORT}`);
