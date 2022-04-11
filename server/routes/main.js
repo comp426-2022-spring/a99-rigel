@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import { index, hello, all_users } from './default.js';
+import * as api from './default.js';
 
 const router = Router();
 
-router.get('/', index);
-router.get('/hello/:name', hello);
-router.get('/users', all_users);
+router.get('/', api.index);
+router.get('/hello/:name', api.hello);
+router.get('/all_users', api.all_users);
+router.get('/user/:id', api.user);
+router.post('/add_user', api.add_user);
 
 export default router;
