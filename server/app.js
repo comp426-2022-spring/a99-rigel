@@ -1,0 +1,16 @@
+const express = require('express');
+const mongodb = require('mongodb');
+const main = require('./routes/main');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+
+app.use(main);
+
+app.get('./set-cookies', (req, res) => {
+
+});
+
+app.get('./read-cookies', (req, res) => {
+    
+});
