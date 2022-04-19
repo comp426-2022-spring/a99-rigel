@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import "./Dashboard.css";
 import Profile from "./Profile";
 import Matches from "./Matches"
-import SurveyList from "./SurveyList";
+import Survey from "./Survey";
 import NotFound from "./Notfound";
 
 class Dashboard extends Component {
@@ -19,6 +19,7 @@ class Dashboard extends Component {
     localStorage.removeItem("token"); //Remove necessary items from local storage in browser
     localStorage.removeItem("id");
     localStorage.removeItem("email");
+    localStorage.removeItem("taking_survey")
     this.setState({
       islogout: true //Means that upon rendering, we will be redirected to login page.
     });
@@ -29,7 +30,7 @@ class Dashboard extends Component {
       return <Redirect to="/login" />;
     }
     const { match } = this.props;
-    
+
     return (
       <div>
         <ul>
@@ -37,10 +38,10 @@ class Dashboard extends Component {
             <Link to={`${match.path}`}>Surveys To Take</Link>
           </li>
           <li>
-            <Link to={`${match.path}/profile`}>Completed Surveys</Link>
+            <Link to={`${match.path}/mysurveys`}>My Surveys</Link>
           </li>
           <li>
-            <Link to={`${match.path}/matches`}>My Surveys</Link>
+            <Link to={`${match.path}/create`}>Create Survey</Link>
           </li>
           <li className="push-right">
             <button onClick={this.signOut} href="#">
@@ -51,14 +52,14 @@ class Dashboard extends Component {
         <main role="main">
           <div className="main">
             <Switch>
-              <Route path={`${match.path}/profile`}>
-                <Profile />
+              <Route path={`${match.path}/mysurveys`}>
+                <Matches />
               </Route>
-              <Route path={`${match.path}/matches`}>
+              <Route path={`${match.path}/create`}>
                 <Matches />
               </Route>
               <Route exact path={`${match.path}`}>
-                <SurveyList />
+                <Survey />
               </Route>
               <Route path="*">
                 <NotFound />

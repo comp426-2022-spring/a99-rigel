@@ -10,6 +10,7 @@ class Matches extends Component {
       matches: [],
       current: 0
     }
+    localStorage.setItem("taking_survey", "F")
   }
 
   componentDidMount() {
