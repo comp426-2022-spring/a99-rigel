@@ -14,7 +14,6 @@ class Register extends Component { //Constructor, initialize the fields of this 
         username: "",
         password: "",
         password_2: "",
-        title: ""
       }
     };
   }
@@ -32,13 +31,11 @@ class Register extends Component { //Constructor, initialize the fields of this 
     let username = this.state.registerParams.username;
     let password = this.state.registerParams.password;
     let password_2 = this.state.registerParams.password_2;
-    let title = this.state.registerParams.title;
 
-    if (username.length !== 0 && password.length !== 0 && title.length !== 0 && password === password_2) {
+    if (username.length !== 0 && password.length !== 0 && password === password_2) {
       axios.post("http://localhost:5000/app/register", {
         username: username,
         password: password,
-        title: title
       })
       .then((response) => {
         this.setState({
@@ -57,7 +54,7 @@ class Register extends Component { //Constructor, initialize the fields of this 
     event.preventDefault();
   };
   
-  render() {
+  render() { //Render component
     if (this.state.isRegistered) {
       return <Redirect to="/" />;
     }
@@ -85,12 +82,6 @@ class Register extends Component { //Constructor, initialize the fields of this 
                 name="password_2"
                 onChange={this.handleFormChange}
                 placeholder="Enter Password Again"
-              />
-              <input
-                type="text"
-                name="title"
-                onChange={this.handleFormChange}
-                placeholder="Enter Your Title (eg: Student at UNC, Researcher at UVA)"
               />
               <input type="submit" value="Register" />
             </div>

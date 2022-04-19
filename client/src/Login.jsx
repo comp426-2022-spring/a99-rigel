@@ -32,10 +32,10 @@ class Login extends Component {
       pass: user_password
     })
     .then((response) => {
-      if (response.data.status === 1){
-        localStorage.setItem("token", "T");
-        localStorage.setItem("id", response.data.id);
-        localStorage.setItem("email", response.data.email);
+      if (response.data.status === 1){//We store info about the current user locally in browser
+        localStorage.setItem("token", "T"); //Tracks if the user is logged in
+        localStorage.setItem("username", response.data.username); //
+        //localStorage.setItem("title", response.data.title);
         this.setState({
           islogged: true
         });

@@ -4,27 +4,27 @@ import { withRouter } from "react-router";
 import "./Dashboard.css";
 import Profile from "./Profile";
 import Matches from "./Matches"
-import Swipes from "./Swipes";
+import SurveyList from "./SurveyList";
 import NotFound from "./Notfound";
 
 class Dashboard extends Component {
-  constructor(props) {
+  constructor(props) { //Constructor, initialize fields (only one that checks if user logged in)
     super(props);
     this.state = {
       islogout: false
     };
   }
 
-  signOut = () => {
-    localStorage.removeItem("token");
+  signOut = () => { //Signing out of account
+    localStorage.removeItem("token"); //Remove necessary items from local storage in browser
     localStorage.removeItem("id");
     localStorage.removeItem("email");
     this.setState({
-      islogout: true
+      islogout: true //Means that upon rendering, we will be redirected to login page.
     });
   };
 
-  render() {
+  render() { //Render component
     if (this.state.islogout) {
       return <Redirect to="/login" />;
     }
@@ -34,13 +34,13 @@ class Dashboard extends Component {
       <div>
         <ul>
           <li>
-            <Link to={`${match.path}`}>Swipes</Link>
+            <Link to={`${match.path}`}>Surveys To Take</Link>
           </li>
           <li>
-            <Link to={`${match.path}/profile`}>Profile</Link>
+            <Link to={`${match.path}/profile`}>Completed Surveys</Link>
           </li>
           <li>
-            <Link to={`${match.path}/matches`}>Matches</Link>
+            <Link to={`${match.path}/matches`}>My Surveys</Link>
           </li>
           <li className="push-right">
             <button onClick={this.signOut} href="#">
@@ -58,7 +58,7 @@ class Dashboard extends Component {
                 <Matches />
               </Route>
               <Route exact path={`${match.path}`}>
-                <Swipes />
+                <SurveyList />
               </Route>
               <Route path="*">
                 <NotFound />
