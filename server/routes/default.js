@@ -47,3 +47,10 @@ export function add_user(req, res) {
         });
     }
 }
+export function all_surveys(req, res) {
+    const survey = req.app.get('db').collection('survey');
+    const cursor = survey.find({}, { projection: { '_id': false } });
+    cursor.toArray().then((result) => {
+        res.send(result);
+    });
+}
