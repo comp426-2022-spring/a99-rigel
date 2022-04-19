@@ -5,16 +5,19 @@ class Question extends Component {
     super(props);      //user_id, and user_password
     this.state = {
       question: this.props.question,
+      question_index: this.props.index,
       answer: ""
     };
   }
+
   handleFormChange = event => { //Updates state after each user interaction
-    let newAnswer = { ...this.state.answer };
+    let newAnswer = { ...this.state.answer }; //Copy
     let val = event.target.value;
     newAnswer = val;
     this.setState({
       answer: newAnswer
-    });
+    })
+    this.props.handleChange(newAnswer, this.state.question_index)
   };
 
   render() { //Render component

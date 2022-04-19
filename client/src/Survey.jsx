@@ -9,7 +9,8 @@ class Survey extends Component {
       surveys: [], //Keeps a list of survey objects. Each survey object should contain two fields: name and id
       surveyComponents: [], //Actual jsx to be rendered
       survey_questions: [],
-      survey_questions_render: []
+      survey_questions_render: [],
+      survey_answers: []
     }
   }
 
@@ -29,6 +30,7 @@ class Survey extends Component {
       });
     })
     */
+   //Displays the survey list
     const surveys = [{name: "How are you feeling?", id: 1}, //Testing w/out backend interaction 
                    {name: "How is your day?", id: 2},
                    {name: "Whats up bro?", id: 3},
@@ -38,7 +40,7 @@ class Survey extends Component {
                    {name: "Tell me how many cars have you stolen?", id: 7},
                    {name: "Tell me how many cars have you stolen?", id: 8}
                   ]
-    const surveyComponents = surveys.map((survey) =>
+    const surveyComponents = surveys.map((survey) =>//Surprised this works
         <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
             {survey.name}
         </li>, this
@@ -52,7 +54,16 @@ class Survey extends Component {
     }
   }
 
+  handleAnswerChange = (new_answer, index) => {
+    let new_answers = {...this.state.survey_answers};
+    new_answers[index] = new_answer;
+    this.setState({
+      survey_answers: new_answers
+    })
+  }
+
   openSurvey = survey_id => {
+    //Displays an opened survey
     localStorage.setItem("taking_survey", "T");
     /*
     axios.get("http://localhost:5000/app/getsurvey/"+survey_id)
@@ -92,9 +103,13 @@ class Survey extends Component {
       {question: "Any thing else?", type: "free-response"},
       {question: "Final question!", type: "free-response"},
     ]
+    let question_strings = [];
+    for (let i = 0; i < survey_data.length; i++) {
+      question_strings.push(survey_data[i].question)
+    }
     let questions = [];
     for (let i = 0; i < survey_data.length; i++) {
-      questions.push(<Question question = {survey_data[i].question}/>)
+      questions.push(<Question question = {survey_data[i].question} index = {i} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>)
     }
     let breaklist = [];
     for (let k = 0; k < survey_data.length; k++) {
@@ -105,9 +120,10 @@ class Survey extends Component {
       final_survey_questions.push(questions[j]);
       final_survey_questions.push(breaklist[j]);
     }
-    this.setState({
+    this.setState({ //Initializing state variables for survey-taking mode
       survey_questions_render: final_survey_questions,
-      survey_questions: questions
+      survey_questions: question_strings,
+      survey_answers: new Array(survey_data.length).fill("")
     })
     localStorage.setItem("curr_survey_id", survey_id) //Means that if you refresh the page, you stay on that survey (though your input data is lost)
   }
@@ -115,17 +131,16 @@ class Survey extends Component {
   submitSurvey = event => {
     localStorage.setItem("taking_survey", "F")
     localStorage.removeItem("curr_survey_id")
-    alert("test")
-    let result = []];
-    let questions = this.state.survey_questions
-    for (let i = 0; i < questions.length; i++) { //The issue is that you can't access the child's state as a parent component in react. see https://stackoverflow.com/questions/27864951/how-to-access-a-childs-state-in-react
-      alert(questions[i].state.question)
-      result.push({question: questions[i].state.question, answer: questions[i].state.answer})
-      //result.push({question: questions[i].state.question, answer: questions[i].state.answer})
+    let survey_answers = [];
+    for (let i = 0; i < this.state.survey_questions.length; i++) {
+      survey_answers.push(this.state.survey_answers[i.toString()])
     }
-    console.log(JSON.stringify(result))
-    alert(JSON.stringify(result))
-    alert("help")
+    let res = [];
+    for (let k = 0; k < survey_answers.length; k++) {
+      res.push({question: this.state.survey_questions[k], answer: survey_answers[k]})
+    }
+    alert(JSON.stringify(res));//Res is an array of objects, each object has two fields: question and the corresponding answer
+    //Each question and its corresponding answer in the survey is accounted for
   }
 
   render() {
