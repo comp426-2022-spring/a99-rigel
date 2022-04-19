@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Redirect, Switch, Route, Link } from "react-router-dom";
+import Matches from "./Matches"
 import Login from "./Login";
 import axios from "axios"
 
@@ -33,7 +34,10 @@ class Survey extends Component {
                    {name: "How is your day?", id: 2},
                    {name: "Whats up bro?", id: 3},
                    {name: "Have a nice day!", id: 4},
-                   {name: "Tell me how many cars have you stolen?", id: 5}
+                   {name: "Tell me how many cars have you stolen?", id: 5},
+                   {name: "Tell me how many cars have you stolen?", id: 6},
+                   {name: "Tell me how many cars have you stolen?", id: 7},
+                   {name: "Tell me how many cars have you stolen?", id: 8}
                   ]
     const surveyComponents = surveys.map((survey) =>
         <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
@@ -42,7 +46,8 @@ class Survey extends Component {
     );
     this.setState({
         surveys: surveys,
-        surveyComponents: surveyComponents
+        surveyComponents: surveyComponents,
+        test: [<p>Hi test</p>,<br/>,<p>Hi test 2</p>, <Matches/>]
     });
   }
 
@@ -52,19 +57,20 @@ class Survey extends Component {
     axios.get("http://localhost:5000/app/getsurvey/"+survey_id)
     .then((response) => {
       const survey_data = response.data; //survey_data should consist of a list of objects, each wiht 2 fields: question and type
-      const surveyQuestions = survey_data.map((item) =>
-          <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
-              {survey.name}
-          </li>, this
-      );
+      //Use for loop to build a list of <Question /> components which will then be added to the state
+      //When we submit the survey, we will go to the list of <Questoin /> components in state.
+      //Then, we go to the state of each <Question /> component and get the value of the responses to each question.
+      //We also go to the state of the <Question /> component and get the text of the question itself
+      //Then we take this, put it into a json, and post it to the server
       this.setState({
-        survey_data: survey_data
+        survey_questions: survey_data
       })
       window.location.reload(false)
     })
+    window.location.reload(false)
   }
 
-  closeSurvey = event => {
+  submitSurvey = event => {
     localStorage.setItem("taking_survey", "F")
   }
 
@@ -75,7 +81,8 @@ class Survey extends Component {
       return (
         <div>
           <p>Questions</p>
-          <a href = "" onClick = {this.closeSurvey}>Click here</a>
+          {this.state.test}
+          <a href = "" onClick = {this.submitSurvey}>Submit</a>
         </div>
       )
     }
