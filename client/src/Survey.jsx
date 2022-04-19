@@ -7,7 +7,9 @@ class Survey extends Component {
     super(props);
     this.state = {
       surveys: [], //Keeps a list of survey objects. Each survey object should contain two fields: name and id
-      surveyComponents: [] //Actual jsx to be rendered
+      surveyComponents: [], //Actual jsx to be rendered
+      survey_questions: [],
+      survey_questions_render: []
     }
   }
 
@@ -46,7 +48,7 @@ class Survey extends Component {
         surveyComponents: surveyComponents,
     });
     if (localStorage.getItem("curr_survey_id") != null) {
-      this.openSurvey(localStorage.getItem("curr_survey_id"));
+      this.openSurvey(localStorage.getItem("curr_survey_id")); //This only executes if we refresh the tab while still answering a survey.
     }
   }
 
@@ -104,7 +106,8 @@ class Survey extends Component {
       final_survey_questions.push(breaklist[j]);
     }
     this.setState({
-      survey_questions: final_survey_questions,
+      survey_questions_render: final_survey_questions,
+      survey_questions: questions
     })
     localStorage.setItem("curr_survey_id", survey_id) //Means that if you refresh the page, you stay on that survey (though your input data is lost)
   }
@@ -112,17 +115,29 @@ class Survey extends Component {
   submitSurvey = event => {
     localStorage.setItem("taking_survey", "F")
     localStorage.removeItem("curr_survey_id")
+    alert("test")
+    let result = {result: []};
+    let questions = this.state.survey_questions
+    for (let i = 0; i < questions.length; i++) { //The issue is that you can't access the child's state as a parent component in react. see https://stackoverflow.com/questions/27864951/how-to-access-a-childs-state-in-react
+      alert(questions[i].state.question)
+      result.result.push({question: questions[i].state.question, answer: questions[i].state.answer})
+      //result.push({question: questions[i].state.question, answer: questions[i].state.answer})
+    }
+    console.log(JSON.stringify(result))
+    alert(JSON.stringify(result))
+    alert("help")
   }
 
   render() {
     const surveyList = this.state.surveyComponents;
-    const survey_questions = this.state.survey_questions;
+    const survey_questions_render = this.state.survey_questions_render;
     const { match } = this.props;
     if (localStorage.getItem("taking_survey") === "T") {
       return (
         <div>
-          <p>hello</p>
-          {survey_questions}
+          <br/>
+          <p>You are doing survey {localStorage.getItem("curr_survey_id")}</p>
+          {survey_questions_render}
           <a href = "" onClick = {this.submitSurvey}>Submit</a>
         </div>
       )
