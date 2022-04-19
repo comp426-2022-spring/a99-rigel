@@ -116,11 +116,11 @@ class Survey extends Component {
     localStorage.setItem("taking_survey", "F")
     localStorage.removeItem("curr_survey_id")
     alert("test")
-    let result = {result: []};
+    let result = []];
     let questions = this.state.survey_questions
     for (let i = 0; i < questions.length; i++) { //The issue is that you can't access the child's state as a parent component in react. see https://stackoverflow.com/questions/27864951/how-to-access-a-childs-state-in-react
       alert(questions[i].state.question)
-      result.result.push({question: questions[i].state.question, answer: questions[i].state.answer})
+      result.push({question: questions[i].state.question, answer: questions[i].state.answer})
       //result.push({question: questions[i].state.question, answer: questions[i].state.answer})
     }
     console.log(JSON.stringify(result))
