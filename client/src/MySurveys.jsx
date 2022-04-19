@@ -4,8 +4,6 @@ import QandABox from "./QandABox"
 class MySurvey extends Component {
 
   constructor(props) { //Constructor, initialize fields
-    localStorage.removeItem("curr_survey_id")
-    localStorage.setItem("taking_survey", "F")
     super(props);
     this.state = {
       surveys: [], //Keeps a list of survey objects. Each survey object should contain two fields: name and id
@@ -13,6 +11,11 @@ class MySurvey extends Component {
       survey_data: [], //The jsx for a a list of questions in a single survey
       curr_survey_title: ""
     }
+    this.remove_tokens = this.remove_tokens.bind(this);
+  }
+
+  remove_tokens = () => {
+    localStorage.removeItem("viewing_survey")
   }
 
   componentDidMount() {//After mounting, we will make post request for survey data, and add this to the component state
@@ -28,14 +31,17 @@ class MySurvey extends Component {
         surveys: surveys,
         surveyComponents: surveyComponents,
     });
-    if (localStorage.getItem("view_survey_id") != null) {
-      this.openSurvey(localStorage.getItem("view_survey_id")); //This only executes if we refresh the tab while still answering a survey.
-    }
+    window.addEventListener('beforeunload', this.remove_tokens());
+  }
+
+  componentWillUnmount() {
+    this.remove_tokens()
+    window.removeEventListener('beforeunload', this.remove_tokens()); // remove the event handler for normal unmounting
   }
 
   openSurvey = survey_id => {
+    localStorage.setItem("viewing_survey", "T")
     //Displays an opened survey and its results
-    localStorage.setItem("viewing_survey", "T");
     const survey_data = {
         survey_id: 123,
         survey_name: "Health survey",
@@ -53,12 +59,10 @@ class MySurvey extends Component {
       survey_data: responses,
       curr_survey_title: survey_data.survey_name
     })
-    localStorage.setItem("view_survey_id", survey_id) //Means that if you refresh the page, you stay on that survey (though your input data is lost)
   }
 
   closeSurvey = event => { //Submit the survey, combine the survey data to a single array
-    localStorage.setItem("viewing_survey", "F")
-    localStorage.removeItem("view_survey_id")
+    localStorage.removeItem("viewing_survey")
     this.setState({
         survey_data: [],
         curr_survey_title: ""

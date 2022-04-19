@@ -1,8 +1,15 @@
 import React, { Component, Fragment } from "react";
 import Question from "./Question"
 
-class Survey extends Component {
+//Axios call example:
+/*
+axios.get("http://localhost:5000/app/surveys/")
+.then((response) => {
+  
+})
+*/
 
+class Survey extends Component {
   constructor(props) { //Constructor, initialize fields
     super(props);
     this.state = {
@@ -12,27 +19,10 @@ class Survey extends Component {
       survey_questions_render: [], //The jsx for a a list of questions in a single survey
       survey_answers: [], //A list of strings for the survey answers
     }
+    this.remove_tokens = this.remove_tokens.bind(this);
   }
 
   componentDidMount() {//After mounting, we will make post request for survey data, and add this to the component state
-    /*
-    axios.get("http://localhost:5000/app/surveys/")
-    .then((response) => {
-      const surveys = response.data //Creating a list of jsx HTML components with the survey list data. Surveys should consist of a list of objects, each with 2 fields: name and id
-      const surveyComponents = surveys.map((survey) =>//Surprised this works
-          <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
-              {survey.name}
-          </li>, this
-      );
-      this.setState({
-          surveys: surveys,
-          surveyComponents: surveyComponents,
-      });
-      if (localStorage.getItem("curr_survey_id") != null) {
-        this.openSurvey(localStorage.getItem("curr_survey_id")); //This only executes if we refresh the tab while still answering a survey.
-      }
-    })
-    */
    //Displays the survey list
     const surveys = [{name: "How are you feeling?", id: 1}, //Testing w/out backend interaction 
                    {name: "How is your day?", id: 2},
@@ -43,6 +33,7 @@ class Survey extends Component {
                    {name: "Tell me how many cars have you stolen?", id: 7},
                    {name: "Tell me how many cars have you stolen?", id: 8}
                   ]
+    window.addEventListener('beforeunload', this.remove_tokens());
     const surveyComponents = surveys.map((survey) =>//Surprised this works
         <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
             {survey.name}
@@ -52,9 +43,6 @@ class Survey extends Component {
         surveys: surveys,
         surveyComponents: surveyComponents,
     });
-    if (localStorage.getItem("curr_survey_id") != null) {
-      this.openSurvey(localStorage.getItem("curr_survey_id")); //This only executes if we refresh the tab while still answering a survey.
-    }
   }
 
   handleAnswerChange = (new_answer, index) => { //Handles whenever theres an answer change in a child Question component
@@ -65,37 +53,20 @@ class Survey extends Component {
     })
   }
 
+  componentWillUnmount() {
+    this.remove_tokens()
+    window.removeEventListener('beforeunload', this.remove_tokens()); // remove the event handler for normal unmounting
+  }
+
+  remove_tokens = () => {
+    localStorage.removeItem("taking_survey")
+    localStorage.removeItem("curr_survey_id")
+  }
+
   openSurvey = survey_id => {
     //Displays an opened survey
     localStorage.setItem("taking_survey", "T");
-    /*
-    axios.get("http://localhost:5000/app/getsurvey/"+survey_id)
-    .then((response) => {
-      let question_strings = [];
-      for (let i = 0; i < survey_data.length; i++) {
-        question_strings.push(survey_data[i].question)
-      }
-      let questions = [];
-      for (let i = 0; i < survey_data.length; i++) {
-        questions.push(<Question question = {survey_data[i].question} index = {i} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>)
-      }
-      let breaklist = [];
-      for (let k = 0; k < survey_data.length; k++) {
-        breaklist.push(<br/>)
-      }
-      let final_survey_questions = []; //List of <Question /> components interspersed with <br/>
-      for (let j = 0; j < survey_data.length; j++) {
-        final_survey_questions.push(questions[j]);
-        final_survey_questions.push(breaklist[j]);
-      }
-      this.setState({ //Initializing state variables for survey-taking mode
-        survey_questions_render: final_survey_questions,
-        survey_questions: question_strings,
-        survey_answers: new Array(survey_data.length).fill("")
-      })
-      localStorage.setItem("curr_survey_id", survey_id) //Means that if you refresh the page, you stay on that survey (though your input data is lost)
-    }) */
-
+    localStorage.setItem("curr_survey_id", survey_id)
     const survey_data = [
       {question: "q1 answer here?", type: "free-response"},
       {question: "q2 answer here?", type: "free-response"},
@@ -115,11 +86,10 @@ class Survey extends Component {
       survey_questions: question_strings,
       survey_answers: new Array(survey_data.length).fill("")
     })
-    localStorage.setItem("curr_survey_id", survey_id) //Means that if you refresh the page, you stay on that survey (though your input data is lost)
   }
 
   submitSurvey = event => { //Submit the survey, combine the survey data to a single array
-    localStorage.setItem("taking_survey", "F")
+    localStorage.removeItem("taking_survey")
     localStorage.removeItem("curr_survey_id")
     let survey_answers = [];
     for (let i = 0; i < this.state.survey_questions.length; i++) {

@@ -21,6 +21,7 @@ class Dashboard extends Component {
     localStorage.removeItem("email");
     localStorage.removeItem("taking_survey")
     localStorage.removeItem("curr_survey_id")
+    localStorage.removeItem("viewing_survey")
     this.setState({
       islogout: true //Means that upon rendering, we will be redirected to login page.
     });

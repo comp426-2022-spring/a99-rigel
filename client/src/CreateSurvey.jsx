@@ -5,8 +5,6 @@ class CreateSurvey extends Component {
 
   constructor(props) { //Constructor, initialize fields
     super(props);
-    localStorage.removeItem("curr_survey_id")
-    localStorage.setItem("taking_survey", "F")
     this.state = {
       size: 1,
       title: "",
@@ -77,8 +75,7 @@ class CreateSurvey extends Component {
     return (
         <div>
           <br/>
-          <p> Create New Survey</p>
-          <br/>
+          <h1 class = "surveyListHeader"> Create New Survey</h1>
           {questions}
           <a href = "" onClick = {this.addQuestion}>Add question</a>
           <br/>
