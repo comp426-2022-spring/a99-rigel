@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Redirect, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import "./Dashboard.css";
-import Profile from "./Profile";
 import Matches from "./Matches"
 import Survey from "./Survey";
 import NotFound from "./Notfound";
+import "./styles/Dashboard.css";
 
 class Dashboard extends Component {
   constructor(props) { //Constructor, initialize fields (only one that checks if user logged in)
@@ -20,6 +19,7 @@ class Dashboard extends Component {
     localStorage.removeItem("id");
     localStorage.removeItem("email");
     localStorage.removeItem("taking_survey")
+    localStorage.removeItem("curr_survey_id")
     this.setState({
       islogout: true //Means that upon rendering, we will be redirected to login page.
     });

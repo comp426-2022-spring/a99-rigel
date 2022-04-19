@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./Login.css";
-import axios from 'axios';
 import { Redirect, Link } from "react-router-dom";
-import image from "./FindYourFitLogo.png"
+import axios from 'axios';
+import image from "./resources/FindYourFitLogo.png"
+import "./styles/Login.css";
 
 class Login extends Component {
   constructor(props) { //Constructor, initialize the state of the Login component to have 2 fields:

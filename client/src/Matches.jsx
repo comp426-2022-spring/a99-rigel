@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import image from "./FindYourFitLogo.png"
+import image from "./resources/FindYourFitLogo.png"
 
 class Matches extends Component {
 
@@ -10,10 +10,11 @@ class Matches extends Component {
       matches: [],
       current: 0
     }
-    localStorage.setItem("taking_survey", "F")
   }
 
   componentDidMount() {
+    localStorage.removeItem("curr_survey_id")
+    localStorage.setItem("taking_survey", "F")
     axios.get("http://localhost:5000/app/matches/"+localStorage.getItem("email"))
     .then((response) => {
         let matchList = response.data;

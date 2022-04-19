@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./Login.css";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 import {Link} from "react-router-dom";
-import image from "./FindYourFitLogo.png";
+import axios from "axios";
+import image from "./resources/FindYourFitLogo.png";
+import "./styles/Login.css";
 
 class Register extends Component { //Constructor, initialize the fields of this component
   constructor(props) {

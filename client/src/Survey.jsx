@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Redirect, Switch, Route, Link } from "react-router-dom";
-import Matches from "./Matches"
-import Login from "./Login";
-import axios from "axios"
+import Question from "./Question"
 
 class Survey extends Component {
 
@@ -47,41 +44,85 @@ class Survey extends Component {
     this.setState({
         surveys: surveys,
         surveyComponents: surveyComponents,
-        test: [<p>Hi test</p>,<br/>,<p>Hi test 2</p>, <Matches/>]
     });
+    if (localStorage.getItem("curr_survey_id") != null) {
+      this.openSurvey(localStorage.getItem("curr_survey_id"));
+    }
   }
 
   openSurvey = survey_id => {
     localStorage.setItem("taking_survey", "T");
-    alert(survey_id);
+    /*
     axios.get("http://localhost:5000/app/getsurvey/"+survey_id)
     .then((response) => {
       const survey_data = response.data; //survey_data should consist of a list of objects, each wiht 2 fields: question and type
       //Use for loop to build a list of <Question /> components which will then be added to the state
+      //The list of <Questoin /> components will be rendered as we have changed the taking_survey token
       //When we submit the survey, we will go to the list of <Questoin /> components in state.
       //Then, we go to the state of each <Question /> component and get the value of the responses to each question.
       //We also go to the state of the <Question /> component and get the text of the question itself
       //Then we take this, put it into a json, and post it to the server
+      //Pass props into Question like <Question question = "" />
+      let questions = [];
+      for (let i = 0; i < survey_data.length; i++) {
+        questions.push(<Question question = {survey_data[i].question}/>)
+      }
+      let breaklist = [];
+      for (let k = 0; k < survey_data.length; k++) {
+        breaklist.push(<br/>)
+      }
+      let final_survey_questions = []; //List of <Question /> components interspersed with <br/>
+      for (let j = 0; j < survey_data.length; j++) {
+        final_survey_questions.push(questions[j]);
+        final_survey_questions.push(breaklist[j]);
+      }
       this.setState({
-        survey_questions: survey_data
+        survey_questions: final_survey_questions,
       })
-      window.location.reload(false)
+      localStorage.setItem("curr_survey_id", survey_id)
+    }) */
+
+    const survey_data = [
+      {question: "q1 answer here?", type: "free-response"},
+      {question: "q2 answer here?", type: "free-response"},
+      {question: "q3 answer here?", type: "free-response"},
+      {question: "Please rate?", type: "free-response"},
+      {question: "Any thing else?", type: "free-response"},
+      {question: "Final question!", type: "free-response"},
+    ]
+    let questions = [];
+    for (let i = 0; i < survey_data.length; i++) {
+      questions.push(<Question question = {survey_data[i].question}/>)
+    }
+    let breaklist = [];
+    for (let k = 0; k < survey_data.length; k++) {
+      breaklist.push(<br/>)
+    }
+    let final_survey_questions = []; //List of <Question /> components interspersed with <br/>
+    for (let j = 0; j < survey_data.length; j++) {
+      final_survey_questions.push(questions[j]);
+      final_survey_questions.push(breaklist[j]);
+    }
+    this.setState({
+      survey_questions: final_survey_questions,
     })
-    window.location.reload(false)
+    localStorage.setItem("curr_survey_id", survey_id) //Means that if you refresh the page, you stay on that survey (though your input data is lost)
   }
 
   submitSurvey = event => {
     localStorage.setItem("taking_survey", "F")
+    localStorage.removeItem("curr_survey_id")
   }
 
   render() {
-    let surveyList = this.state.surveyComponents;
+    const surveyList = this.state.surveyComponents;
+    const survey_questions = this.state.survey_questions;
     const { match } = this.props;
     if (localStorage.getItem("taking_survey") === "T") {
       return (
         <div>
-          <p>Questions</p>
-          {this.state.test}
+          <p>hello</p>
+          {survey_questions}
           <a href = "" onClick = {this.submitSurvey}>Submit</a>
         </div>
       )
