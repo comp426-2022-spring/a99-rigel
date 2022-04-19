@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import Matches from "./Matches"
+import MySurveys from "./MySurveys"
 import Survey from "./Survey";
 import CreateSurvey from "./CreateSurvey"
 import NotFound from "./Notfound";
@@ -54,7 +54,7 @@ class Dashboard extends Component {
           <div className="main">
             <Switch>
               <Route path={`${match.path}/mysurveys`}>
-                <Matches />
+                <MySurveys />
               </Route>
               <Route path={`${match.path}/create`}>
                 <CreateSurvey />

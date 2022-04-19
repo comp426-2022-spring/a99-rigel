@@ -11,7 +11,7 @@ class CreateSurvey extends Component {
       size: 1,
       title: "",
       responses: [""], //Will store the list of questions of the new survey, with elemnet 0 = the title
-      questions: [<Question question = "Enter question title" index = {0} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>]
+      questions: [<Question question = "Enter Survey Title" index = {0} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>]
     }
   }
 
@@ -32,7 +32,7 @@ class CreateSurvey extends Component {
     let curr_questions = [...this.state.questions] //Must do array copy here damn
     let curr_responses = [...this.state.responses]
     let curr_index = this.state.size
-    let question_title = "Enter question "+curr_index
+    let question_title = "Enter Question "+curr_index
     curr_questions.push(<Question question = {question_title} index = {curr_index} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>)
     curr_responses.push("")
     let new_size = curr_index + 1;
@@ -59,7 +59,7 @@ class CreateSurvey extends Component {
       })
     }
     else {
-      alert("Cannot remove the title question")
+      alert("Error: cannot remove the title question")
     }
     event.preventDefault();
   }
@@ -77,7 +77,7 @@ class CreateSurvey extends Component {
     return (
         <div>
           <br/>
-          <p> Create new survey</p>
+          <p> Create New Survey</p>
           <br/>
           {questions}
           <a href = "" onClick = {this.addQuestion}>Add question</a>
