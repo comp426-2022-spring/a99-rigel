@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import * as scheme from './scheme.js';
 
 export function index(req, res) {
@@ -11,7 +12,7 @@ export function hello(req, res) {
 
 export function all_users(req, res) {
     const user = req.app.get('db').collection('user');
-    const cursor = user.find({}, {projection: {'_id': false}});
+    const cursor = user.find({});
     cursor.toArray().then((result) => {
         res.send(result);
     });
@@ -19,8 +20,10 @@ export function all_users(req, res) {
 
 export function user(req, res) {
     const user = req.app.get('db').collection('user');
+
     if (req.params.id) {
-        const result = user.findOne({'user_id': req.params.id}, {projection: {'_id': false}});
+        const result = user.findOne({'_id': ObjectId(req.params.id)});
+        //console.log(result)
         result.then(data => res.send(data));
     }
 }
@@ -51,7 +54,7 @@ export function add_user(req, res) {
 // Gets all the surveys in the database
 export function all_surveys(req, res) {
     const survey = req.app.get('db').collection('survey');
-    const cursor = survey.find({}, { projection: { '_id': false } });
+    const cursor = survey.find({});
     cursor.toArray().then((result) => {
         res.send(result);
     });
@@ -85,7 +88,7 @@ export function add_survey(req, res) {
 export function survey(req, res) {
     const survey = req.app.get('db').collection('survey');
     if (req.params.surveyid) {
-        const result = survey.findOne({ 'survey_id': req.params.surveyid }, { projection: { '_id': false } });
+        const result = survey.findOne({ 'survey_id': ObjectId(req.params.surveyid) });
         result.then(data => res.send(data));
     }
 }
@@ -117,7 +120,7 @@ export function add_result(req, res) {
 export function result(req, res) {
     const result = req.app.get('db').collection('result');
     if (req.params.surveyid) {
-        const result = result.findOne({ 'survey_id': req.params.surveyid }, { projection: { '_id': false } });
+        const result = result.findOne({ 'survey_id': ObjectId(req.params.surveyid) });
         result.then(data => res.send(data));
     }
 }
