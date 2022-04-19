@@ -5,8 +5,8 @@ import { Redirect, Link } from "react-router-dom";
 import image from "./FindYourFitLogo.png"
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props) { //Constructor, initialize the state of the Login component to have 2 fields:
+    super(props);      //user_id, and user_password
     this.state = {
       islogged: false,
       loginParams: {
@@ -15,7 +15,7 @@ class Login extends Component {
       }
     };
   }
-  handleFormChange = event => {
+  handleFormChange = event => { //Updates the user_id field or user_password field any time the user types
     let loginParamsNew = { ...this.state.loginParams };
     let val = event.target.value;
     loginParamsNew[event.target.name] = val;
@@ -24,7 +24,7 @@ class Login extends Component {
     });
   };
  
-  login = event => {
+  login = event => {  //Post request to server containing the current user_id and user_password fields
     let user_id = this.state.loginParams.user_id;
     let user_password = this.state.loginParams.user_password;
     axios.post("http://localhost:5000/app/login", {
@@ -43,11 +43,12 @@ class Login extends Component {
     })
     .catch(function (error) {
       console.log(error);
+      alert("Error: invalid username or password");
     });
-
     event.preventDefault();
   };
-  render() {
+
+  render() { //Render component
     if (localStorage.getItem("token")) {
       return <Redirect to="/" />;
     }

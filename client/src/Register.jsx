@@ -5,30 +5,21 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import image from "./FindYourFitLogo.png";
 
-class Register extends Component {
+class Register extends Component { //Constructor, initialize the fields of this component
   constructor(props) {
     super(props);
     this.state = {
       isRegistered: false,
       registerParams: {
-        user_first: "",
-        user_last: "",
-        user_id: "",
-        user_password: "",
-        user_img: "",
-        user_address: "",
-        user_city: "",
-        user_state: "",
-        user_goal: "",
-        user_experience: "",
-        user_gender: "",
-        user_lat: 0.0,
-        user_long: 0.0
+        username: "",
+        password: "",
+        password_2: "",
+        title: ""
       }
     };
   }
   
-  handleFormChange = event => {
+  handleFormChange = event => { //Same as Login component, update field any time the user types
     let registerParamsNew = { ...this.state.registerParams };
     let val = event.target.value;
     registerParamsNew[event.target.name] = val;
@@ -37,77 +28,31 @@ class Register extends Component {
     });
   };
 
-  register = event => {
-    let user_first = this.state.registerParams.user_first;
-    let user_last = this.state.registerParams.user_last;
-    let user_id = this.state.registerParams.user_id;
-    let user_password = this.state.registerParams.user_password;
-    let user_img = this.state.registerParams.user_img;
-    let user_address = this.state.registerParams.user_address;
-    let user_city = this.state.registerParams.user_password;
-    let user_state = this.state.registerParams.user_state;
-    let user_goal = this.state.registerParams.user_goal;
-    let user_experience = this.state.registerParams.user_experience;
-    let user_gender = this.state.registerParams.user_gender;
+  register = event => { //Post request to server when the user officially registers
+    let username = this.state.registerParams.username;
+    let password = this.state.registerParams.password;
+    let password_2 = this.state.registerParams.password_2;
+    let title = this.state.registerParams.title;
 
-    if (user_id.length !== 0 && user_password.length !== 0 && user_address.length !== 0 && user_city.length !== 0 && user_state.length !== 0) {
-      const API_KEY = "AIzaSyCXoX_K7Jrg1jARURwvGIGlz06cRUOqxxA";
-      let newAddress = "";
-      let splitAddress = user_address.split(" ");
-      for (let i = 0; i < splitAddress.length; i++) {
-        if (i === splitAddress.length - 1) {
-          newAddress += splitAddress[i] + ",+"
-        } else {
-          newAddress += splitAddress[i] + "+";
-        }
-      }
-      let splitCity = user_city.split(" ");
-      for (let i = 0; i < splitCity.length; i++) {
-        if (i === splitCity.length - 1) {
-          newAddress += splitCity[i] + ",+"
-        } else {
-          newAddress += splitCity[i] + "+";
-        }
-      }
-      newAddress += user_state;
-      axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-          address: newAddress,
-          key: API_KEY
-        }
-      })
-      .then((response) => {
-        let registerParamsNew = { ...this.state.registerParams };
-        var user_lat = response.data.results[0].geometry.location.lat;
-        var user_lng = response.data.results[0].geometry.location.lng;
-        axios.post("http://localhost:5000/app/register", {
-          email: user_id,
-          pass: user_password,
-          personName: user_first + " " + user_last,
-          img: user_img,
-          latitude: user_lat,
-          longitude: user_lng,
-          goal: user_goal,
-          experience: user_experience,
-          gender: user_gender
+    if (username.length !== 0 && password.length !== 0 && title.length !== 0 && password === password_2) {
+      axios.post("http://localhost:5000/app/register", {
+        username: username,
+        password: password,
+        title: title
       })
       .then((response) => {
         this.setState({
-            isRegistered: true
+          isRegistered: true
         });
       })
       .catch(function (error) {
         console.log(error);
-      });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-      let user_lat = this.state.registerParams.user_lat;
-      let user_long = this.state.registerParams.user_long;
-
-      
+        alert("Error registering");
+      });      
+    }
+    else {
+      console.log("Error");
+      alert("Error: please enter valid inputs. Make sure passwords match.")
     }
     event.preventDefault();
   };
@@ -125,64 +70,27 @@ class Register extends Component {
             <div className="col">
               <input
                 type="text"
-                name="user_first"
+                name="username"
                 onChange={this.handleFormChange}
-                placeholder="Enter First Name"
+                placeholder="Enter New Username"
               />
               <input
                 type="text"
-                name="user_last"
+                name="password"
                 onChange={this.handleFormChange}
-                placeholder="Enter Last Name"
+                placeholder="Enter New Password"
               />
               <input
                 type="text"
-                name="user_id"
+                name="password_2"
                 onChange={this.handleFormChange}
-                placeholder="Enter Email"
+                placeholder="Enter Password Again"
               />
               <input
                 type="text"
-                name="user_img"
+                name="title"
                 onChange={this.handleFormChange}
-                placeholder="Enter Link of Your Image"
-              />
-              <input
-                type="password"
-                name="user_password"
-                onChange={this.handleFormChange}
-                placeholder="Enter Password"
-              />
-              <input
-                type="text"
-                name="user_address"
-                onChange={this.handleFormChange}
-                placeholder="Enter Your Address"
-              />
-              <input
-                type="text"
-                name="user_city"
-                onChange={this.handleFormChange}
-                placeholder="Enter Your City"
-              />
-              <input
-                type="text"
-                name="user_state"
-                onChange={this.handleFormChange}
-                placeholder="Enter Your State"
-              />
-              <input
-                type="text"
-                name="user_goal"
-                onChange={this.handleFormChange}
-                placeholder="What Are Your Fitness Goals"
-              />
-              <input
-                type="number"
-                name="user_experience"
-                onChange={this.handleFormChange}
-                min="0"
-                placeholder="Enter # of Years of Experience"
+                placeholder="Enter Your Title (eg: Student at UNC, Researcher at UVA)"
               />
               <input type="submit" value="Register" />
             </div>
