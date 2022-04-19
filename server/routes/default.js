@@ -60,7 +60,7 @@ export function add_survey(req, res) {
    
     const data = {
         survey_name: req.body.survey_name,
-        owner_id: req.params.id,
+        owner_id: req.params.userid,
         survey_intro: "Please fill out the questions below.",
         questions: req.body.questions
     };
@@ -74,4 +74,12 @@ export function add_survey(req, res) {
             result: resdb
         });
     });
+}
+
+export function survey(req, res) {
+    const survey = req.app.get('db').collection('survey');
+    if (req.params.id) {
+        const result = survey.findOne({ 'survey_id': req.params.surveyid }, { projection: { '_id': false } });
+        result.then(data => res.send(data));
+    }
 }
