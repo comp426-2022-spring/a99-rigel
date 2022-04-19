@@ -54,3 +54,24 @@ export function all_surveys(req, res) {
         res.send(result);
     });
 }
+
+export function add_survey(req, res) {
+    const survey = req.app.get('db').collection('survey');
+   
+    const data = {
+        survey_name: req.body.survey_name,
+        owner_id: req.params.id,
+        survey_intro: "Please fill out the questions below.",
+        questions: req.body.questions
+    };
+    survey.insertOne(data, (err, resdb) => {
+        if (err) res.send({
+            status: 'error',
+            debug: resdb
+        });
+        else res.send({
+            status: 'sucess',
+            result: resdb
+        });
+    });
+}
