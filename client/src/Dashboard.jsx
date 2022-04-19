@@ -3,6 +3,7 @@ import { Redirect, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Matches from "./Matches"
 import Survey from "./Survey";
+import CreateSurvey from "./CreateSurvey"
 import NotFound from "./Notfound";
 import "./styles/Dashboard.css";
 
@@ -56,7 +57,7 @@ class Dashboard extends Component {
                 <Matches />
               </Route>
               <Route path={`${match.path}/create`}>
-                <Matches />
+                <CreateSurvey />
               </Route>
               <Route exact path={`${match.path}`}>
                 <Survey />
