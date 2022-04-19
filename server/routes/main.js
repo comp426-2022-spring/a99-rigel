@@ -13,4 +13,7 @@ router.get('/all_surveys', api.all_surveys);
 router.post('/add_survey/:userid', api.add_survey);
 router.get('/survey/:surveyid', api.survey);
 
+router.post('/add_result/:surveyid', api.add_result);
+router.get('/result/:surveyid', api.result);
+
 export default router;

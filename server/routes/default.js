@@ -47,6 +47,8 @@ export function add_user(req, res) {
         });
     }
 }
+
+// Gets all the surveys in the database
 export function all_surveys(req, res) {
     const survey = req.app.get('db').collection('survey');
     const cursor = survey.find({}, { projection: { '_id': false } });
@@ -55,6 +57,8 @@ export function all_surveys(req, res) {
     });
 }
 
+// It adds a survey to the database
+// The user id is given in the params
 export function add_survey(req, res) {
     const survey = req.app.get('db').collection('survey');
    
@@ -76,10 +80,44 @@ export function add_survey(req, res) {
     });
 }
 
+// Fetches the data for a specific survey
+// Survey id is in the params
 export function survey(req, res) {
     const survey = req.app.get('db').collection('survey');
-    if (req.params.id) {
+    if (req.params.surveyid) {
         const result = survey.findOne({ 'survey_id': req.params.surveyid }, { projection: { '_id': false } });
+        result.then(data => res.send(data));
+    }
+}
+
+// Adds a respone to a particular survey
+// The survey id is in the params
+export function add_result(req, res) {
+    const result = req.app.get('db').collection('result');
+
+    const data = {
+        survey_id: req.params.surveyid,
+        response_time: new Date(),
+        result: req.body.result
+    };
+    result.insertOne(data, (err, resdb) => {
+        if (err) res.send({
+            status: 'error',
+            debug: resdb
+        });
+        else res.send({
+            status: 'sucess',
+            result: resdb
+        });
+    });
+}
+
+// All the responses for a particular survey
+// Survey id passed in params
+export function result(req, res) {
+    const result = req.app.get('db').collection('result');
+    if (req.params.surveyid) {
+        const result = result.findOne({ 'survey_id': req.params.surveyid }, { projection: { '_id': false } });
         result.then(data => res.send(data));
     }
 }
