@@ -46,7 +46,7 @@ class Survey extends Component {
   }
 
   handleAnswerChange = (new_answer, index) => { //Handles whenever theres an answer change in a child Question component
-    let new_answers = {...this.state.survey_answers};
+    let new_answers = [...this.state.survey_answers];
     new_answers[index] = new_answer;
     this.setState({
       survey_answers: new_answers
@@ -102,6 +102,8 @@ class Survey extends Component {
     alert(JSON.stringify(res));//Res is an array of objects, each object has two fields: question and the corresponding answer
     //Each question and its corresponding answer in the survey is accounted for
     //Fill in an appropriate axios post request here
+    window.location.reload(false); //Reload the page so the tokens are cleared and survey list is displayed again
+
   }
 
   render() { //Render component
@@ -114,7 +116,9 @@ class Survey extends Component {
           <br/>
           <p>You are doing survey {localStorage.getItem("curr_survey_id")}</p>
           {survey_questions_render}
-          <a href = "" onClick = {this.submitSurvey}>Submit</a>
+          <button onClick = {this.submitSurvey} className = "center">
+            Submit
+          </button>
         </div>
       )
     }

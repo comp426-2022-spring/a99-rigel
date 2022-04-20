@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Question from "./Question"
 
 class CreateSurvey extends Component {
@@ -9,7 +10,8 @@ class CreateSurvey extends Component {
       size: 1,
       title: "",
       responses: [""], //Will store the list of questions of the new survey, with elemnet 0 = the title
-      questions: [<Question question = "Enter Survey Title" index = {0} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>]
+      questions: [<Question question = "Enter Survey Title" index = {0} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>],
+      submitted: false
     }
   }
 
@@ -63,25 +65,33 @@ class CreateSurvey extends Component {
   }
 
   submit = event => { //Submit the survey, combine the survey data to a single array
-    alert(this.state.size)
-    alert(this.state.title)
     alert(JSON.stringify(this.state.responses))
     //At this point, this.state.title stores the title of the survey, this.state.responses stores all questions (including title)
+    this.setState({
+      submitted: true
+    })
     event.preventDefault();
   }
 
   render() { //Render components
     let questions = this.state.questions
+    if (this.state.submitted) {
+      return <Redirect to="/" />;
+    }
     return (
         <div>
           <br/>
           <h1 class = "surveyListHeader"> Create New Survey</h1>
           {questions}
-          <a href = "" onClick = {this.addQuestion}>Add question</a>
-          <br/>
-          <a href = "" onClick = {this.removeQuestion}>Remove question</a>
-          <br/>
-          <a href = "" onClick = {this.submit}>submit</a>
+          <button onClick = {this.addQuestion} className = "center">
+            Add question
+          </button>
+          <button onClick = {this.removeQuestion} className = "center">
+            Remove question
+          </button>
+          <button onClick = {this.submit} className = "center">
+            Submit
+          </button>
         </div>
       )
   }

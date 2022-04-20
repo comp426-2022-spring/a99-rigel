@@ -11,7 +11,7 @@ class Question extends Component {
   }
 
   handleFormChange = event => { //Updates state after each user interaction
-    let newAnswer = { ...this.state.answer }; //Copy
+    let newAnswer = this.state.answer; //Copy
     let val = event.target.value;
     newAnswer = val;
     this.setState({

@@ -77,7 +77,9 @@ class MySurvey extends Component {
           <br/>
           <p>Responses for: {this.state.curr_survey_title}</p>
           {this.state.survey_data}
-          <a href = "" onClick = {this.closeSurvey}>Close</a>
+          <button onClick = {this.closeSurvey} className = "center">
+            Close
+          </button>
         </div>
       )
     }

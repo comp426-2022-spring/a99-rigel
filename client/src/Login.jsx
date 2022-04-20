@@ -25,17 +25,17 @@ class Login extends Component {
   };
  
   login = event => {  //Post request to server containing the current user_id and user_password fields
+    /*
     let user_id = this.state.loginParams.user_id;
     let user_password = this.state.loginParams.user_password;
     axios.post("http://localhost:5000/app/login", {
-      email: user_id,
+      username: user_id,
       pass: user_password
     })
     .then((response) => {
       if (response.data.status === 1){//We store info about the current user locally in browser
         localStorage.setItem("token", "T"); //Tracks if the user is logged in
-        localStorage.setItem("username", response.data.username); //
-        //localStorage.setItem("title", response.data.title);
+        localStorage.setItem("username", response.data.username); 
         this.setState({
           islogged: true
         });
@@ -46,6 +46,10 @@ class Login extends Component {
       alert("Error: invalid username or password");
     });
     event.preventDefault();
+    */
+    localStorage.setItem("token", "T")
+    localStorage.setItem("username", "user123"); 
+    localStorage.setItem("password", "abcd123")
   };
 
   render() { //Render component

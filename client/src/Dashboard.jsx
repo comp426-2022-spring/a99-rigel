@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import MySurveys from "./MySurveys"
 import Survey from "./Survey";
 import CreateSurvey from "./CreateSurvey"
-import NotFound from "./Notfound";
+import Profile from "./Profile";
 import "./styles/Dashboard.css";
 
 class Dashboard extends Component {
@@ -17,8 +17,8 @@ class Dashboard extends Component {
 
   signOut = () => { //Signing out of account
     localStorage.removeItem("token"); //Remove necessary items from local storage in browser
-    localStorage.removeItem("id");
-    localStorage.removeItem("email");
+    localStorage.removeItem("username");
+    localStorage.removeItem("password")
     localStorage.removeItem("taking_survey")
     localStorage.removeItem("curr_survey_id")
     localStorage.removeItem("viewing_survey")
@@ -45,6 +45,9 @@ class Dashboard extends Component {
           <li>
             <Link to={`${match.path}/create`}>Create Survey</Link>
           </li>
+          <li>
+            <Link to={`${match.path}/profile`}>My Profile</Link>
+          </li>
           <li className="push-right">
             <button onClick={this.signOut} href="#">
               Sign Out
@@ -60,11 +63,14 @@ class Dashboard extends Component {
               <Route path={`${match.path}/create`}>
                 <CreateSurvey />
               </Route>
+              <Route path={`${match.path}/profile`}>
+                <Profile />
+              </Route>
               <Route exact path={`${match.path}`}>
                 <Survey />
               </Route>
               <Route path="*">
-                <NotFound />
+                <Survey />
               </Route>
             </Switch>
           </div>
