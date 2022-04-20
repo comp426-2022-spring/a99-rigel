@@ -65,6 +65,7 @@ class Survey extends Component {
 
   openSurvey = survey_id => {
     //Displays an opened survey
+    //At this point there would be an API call using the survey_id to get the questions from serve
     localStorage.setItem("taking_survey", "T");
     localStorage.setItem("curr_survey_id", survey_id)
     const survey_data = [

@@ -40,6 +40,7 @@ class MySurvey extends Component {
   }
 
   openSurvey = survey_id => {
+    //At this point there would be an api call using survey_id to get the questions/responses for this survey
     localStorage.setItem("viewing_survey", "T")
     //Displays an opened survey and its results
     const survey_data = {
