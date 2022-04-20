@@ -5,12 +5,12 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
+// middleware
+app.use(express.static('public'));
+app.use(express.json());
+
+// view engine
+app.set('view engine', 'jsx');
+
+// routes
 app.use(authRoutes);
-
-app.get('./set-cookies', (req, res) => {
-
-});
-
-app.get('./read-cookies', (req, res) => {
-    
-});
