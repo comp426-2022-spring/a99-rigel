@@ -93,6 +93,7 @@ class Profile extends Component {
         return (
             <div className="container">
                 <h1 class = "surveyListHeader">User: {this.state.username}</h1><br/>
+                <p>Hint: the default username is user123 and the default password is abcd123</p>
                 <Question question = "Enter old password" index = {0} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password" index = {1} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password again" index = {2} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
