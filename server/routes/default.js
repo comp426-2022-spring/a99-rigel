@@ -20,7 +20,7 @@ export function all_users(req, res) {
 export function user(req, res) {
     const user = req.app.get('db').collection('user');
     if (req.params.id) {
-        const result = user.findOne({'user_id': req.params.id}, {projection: {'_id': false}});
+        const result = user.findOne({'user_id': parseInt(req.params.id)}, {projection: {'_id': false}});
         result.then(data => res.send(data));
     }
 }
