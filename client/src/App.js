@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "./styles/styles.css";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import {
@@ -21,14 +21,14 @@ export default function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <ProtectedRoute path="/dashboard">
+        <ProtectedRoute path="/home">
           <Dashboard />
         </ProtectedRoute>
         <Route exact path="/">
-          <Redirect exact from="/" to="dashboard" />
+          <Redirect exact from="/" to="home" />
         </Route>
         <Route path="*">
-          <Redirect from="/" to="dashboard" />
+          <Redirect from="/" to="home" />
         </Route>
       </Switch>
     </Router>

@@ -1,47 +1,52 @@
 import React, { Component } from "react";
 import { Redirect, Switch, Route, Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import "./Dashboard.css";
+import MySurveys from "./MySurveys"
+import Survey from "./Survey";
+import CreateSurvey from "./CreateSurvey"
 import Profile from "./Profile";
-import Matches from "./Matches"
-import Swipes from "./Swipes";
-import NotFound from "./Notfound";
+import "./styles/Dashboard.css";
 
 class Dashboard extends Component {
-  constructor(props) {
+  constructor(props) { //Constructor, initialize fields (only one that checks if user logged in)
     super(props);
     this.state = {
       islogout: false
-
     };
   }
 
-  signOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    localStorage.removeItem("email");
+  signOut = () => { //Signing out of account
+    localStorage.removeItem("token"); //Remove necessary items from local storage in browser
+    localStorage.removeItem("username");
+    localStorage.removeItem("password")
+    localStorage.removeItem("taking_survey")
+    localStorage.removeItem("curr_survey_id")
+    localStorage.removeItem("viewing_survey")
     this.setState({
-      islogout: true
+      islogout: true //Means that upon rendering, we will be redirected to login page.
     });
   };
 
-  render() {
+  render() { //Render component
     if (this.state.islogout) {
       return <Redirect to="/login" />;
     }
     const { match } = this.props;
-    
+
     return (
       <div>
         <ul>
           <li>
-            <Link to={`${match.path}`}>Swipes</Link>
+            <Link to={`${match.path}`}>Surveys To Take</Link>
           </li>
           <li>
-            <Link to={`${match.path}/profile`}>Profile</Link>
+            <Link to={`${match.path}/mysurveys`}>My Surveys</Link>
           </li>
           <li>
-            <Link to={`${match.path}/matches`}>Matches</Link>
+            <Link to={`${match.path}/create`}>Create Survey</Link>
+          </li>
+          <li>
+            <Link to={`${match.path}/profile`}>My Profile</Link>
           </li>
           <li className="push-right">
             <button onClick={this.signOut} href="#">
@@ -52,17 +57,20 @@ class Dashboard extends Component {
         <main role="main">
           <div className="main">
             <Switch>
+              <Route path={`${match.path}/mysurveys`}>
+                <MySurveys />
+              </Route>
+              <Route path={`${match.path}/create`}>
+                <CreateSurvey />
+              </Route>
               <Route path={`${match.path}/profile`}>
                 <Profile />
               </Route>
-              <Route path={`${match.path}/matches`}>
-                <Matches />
-              </Route>
               <Route exact path={`${match.path}`}>
-                <Swipes />
+                <Survey />
               </Route>
               <Route path="*">
-                <NotFound />
+                <Survey />
               </Route>
             </Switch>
           </div>

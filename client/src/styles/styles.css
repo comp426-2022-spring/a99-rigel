@@ -49,3 +49,23 @@ h2 {
   left:50%; 
   transform:translateX(-50%);
 }
+
+.surveyList{
+  background-color: rgb(255, 255, 255);
+}
+
+.surveyComponent{
+  float: none;
+  border:2px solid #000;
+  margin: 5px;
+  padding:20px;
+}
+
+.surveyComponent:hover {
+  background-color:rgb(142, 210, 233);
+  cursor: pointer;
+}
+
+.surveyListHeader {
+  text-align: center;
+}
