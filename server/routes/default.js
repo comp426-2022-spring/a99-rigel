@@ -10,6 +10,7 @@ export function hello(req, res) {
     res.send(`hello ${name}!`);
 }
 
+// Finds all users in the database
 export function all_users(req, res) {
     const user = req.app.get('db').collection('user');
     const cursor = user.find({});
@@ -18,6 +19,7 @@ export function all_users(req, res) {
     });
 }
 
+// Finds a specific user with id given in params
 export function user(req, res) {
     const user = req.app.get('db').collection('user');
 
@@ -27,6 +29,8 @@ export function user(req, res) {
     }
 }
 
+// Adds a user
+// Validate user authentication not set up?
 export function add_user(req, res) {
     const user = req.app.get('db').collection('user');
     if (scheme.validate_user(req.body)) {
@@ -49,8 +53,6 @@ export function add_user(req, res) {
         });
     }
 }
-<<<<<<< HEAD
-=======
 
 // Gets all the surveys in the database
 export function all_surveys(req, res) {
@@ -68,7 +70,7 @@ export function add_survey(req, res) {
    
     const data = {
         survey_name: req.body.survey_name,
-        owner_id: req.params.userid,
+        owner_id: parseInt(req.params.userid),
         survey_intro: "Please fill out the questions below.",
         questions: req.body.questions
     };
@@ -88,9 +90,24 @@ export function add_survey(req, res) {
 // Survey id is in the params
 export function survey(req, res) {
     const survey = req.app.get('db').collection('survey');
+    
     if (req.params.surveyid) {
-        const result = survey.findOne({ '_id': ObjectId(req.params.surveyid) });
+        const result = survey.findOne({ 'survey_id': parseInt(req.params.surveyid) }, { projection: { '_id': false } });
         result.then(data => res.send(data));
+    }
+}
+
+// Finds all the surveys created by a certain user
+// The user id is passed in the params
+export function user_surveys(req, res) {
+    const survey = req.app.get('db').collection('survey');
+
+    if (req.params.userid) {
+        //console.log(req.params.userid)
+        const cursor = survey.find({ 'owner_id': parseInt(req.params.userid) });
+        cursor.toArray().then((result) => {
+            res.send(result);
+        });
     }
 }
 
@@ -100,7 +117,7 @@ export function add_result(req, res) {
     const result = req.app.get('db').collection('result');
 
     const data = {
-        survey_id: req.params.surveyid,
+        survey_id: parseInt(req.params.surveyid),
         response_time: new Date(),
         result: req.body.result
     };
@@ -116,17 +133,21 @@ export function add_result(req, res) {
     });
 }
 
-// All the responses for a particular survey
+// All the results for a particular survey
 // Survey id passed in params
 export function result(req, res) {
-    const results = req.app.get('db').collection('result');
+    const result = req.app.get('db').collection('result');
+
     if (req.params.surveyid) {
         //console.log(req.params.surveyid)
-        const response = results.findOne({ 'survey_id': req.params.surveyid });
-        response.then(data => res.send(data));
+        const cursor = result.find({ 'survey_id': parseInt(req.params.surveyid) });
+        cursor.toArray().then((result) => {
+            res.send(result);
+        });
     }
 }
 
+// All of the results for all survey
 export function all_results(req, res) {
     const result = req.app.get('db').collection('result');
     const cursor = result.find({});
@@ -134,4 +155,3 @@ export function all_results(req, res) {
         res.send(result);
     });
 }
->>>>>>> 4135119d6977551c47e14099c002cdb1794dd19b
