@@ -1,5 +1,13 @@
 const jwt = require('jsonwebtoken');
 
+// function to creat jwt
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, 'secret', {
+    expiresIn: maxAge
+  })
+}
+
 // controller actions
 module.exports.register_get = (req, res) => {
     res.render('Register');
@@ -12,6 +20,9 @@ module.exports.register_get = (req, res) => {
   module.exports.register_post = (req, res) => {
     const user = req.app.get('db').collection('user');
 
+    // create a token
+    const token = createToken()
+    
     if (scheme.validate_user(req.body)) {
         const data = {
             user_name: req.body.user_name,
