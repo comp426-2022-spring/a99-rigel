@@ -63,6 +63,25 @@ export function all_surveys(req, res) {
     });
 }
 
+
+// Gets surveys that aren't current users
+// User id passsed in params
+export function certain_surveys(req, res) {
+    const survey = req.app.get('db').collection('survey');
+    
+    if (req.params.userid) {
+        const cursor = survey.find({"owner_id" : {$ne: parseInt(req.params.userid)}});
+        cursor.toArray().then((result) => {
+            res.send(result);
+        });
+    }
+
+    const cursor = survey.find({});
+    cursor.toArray().then((result) => {
+        res.send(result);
+    });
+}
+
 // It adds a survey to the database
 // The user id is given in the params
 export function add_survey(req, res) {
