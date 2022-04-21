@@ -88,7 +88,7 @@ export function add_survey(req, res) {
 export function survey(req, res) {
     const survey = req.app.get('db').collection('survey');
     if (req.params.surveyid) {
-        const result = survey.findOne({ 'survey_id': ObjectId(req.params.surveyid) });
+        const result = survey.findOne({ '_id': ObjectId(req.params.surveyid) });
         result.then(data => res.send(data));
     }
 }
@@ -118,9 +118,18 @@ export function add_result(req, res) {
 // All the responses for a particular survey
 // Survey id passed in params
 export function result(req, res) {
-    const result = req.app.get('db').collection('result');
+    const results = req.app.get('db').collection('result');
     if (req.params.surveyid) {
-        const result = result.findOne({ 'survey_id': ObjectId(req.params.surveyid) });
-        result.then(data => res.send(data));
+        //console.log(req.params.surveyid)
+        const response = results.findOne({ 'survey_id': req.params.surveyid });
+        response.then(data => res.send(data));
     }
+}
+
+export function all_results(req, res) {
+    const result = req.app.get('db').collection('result');
+    const cursor = result.find({});
+    cursor.toArray().then((result) => {
+        res.send(result);
+    });
 }
