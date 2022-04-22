@@ -81,6 +81,7 @@ class Survey extends Component {
     axios.get("http://localhost:5000/survey/:"+survey_id)
     .then((response) => {
       const survey = response
+      console.log(survey)
       const survey_data = survey.questions
       localStorage.setItem("taking_survey", "T");
       localStorage.setItem("curr_survey_id", survey_id)
