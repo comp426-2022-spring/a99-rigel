@@ -49,7 +49,8 @@ class Login extends Component {
     */
     localStorage.setItem("token", "T")
     localStorage.setItem("username", "user123"); 
-    localStorage.setItem("password", "abcd123")
+    localStorage.setItem("password", "abcd123");
+    localStorage.setItem("user_id", "123");
   };
 
   render() { //Render component

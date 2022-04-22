@@ -1,5 +1,6 @@
 import express from "express";
 import http from 'http';
+import cors from "cors";
 
 import router from './routes/main.js';
 import setDB from './db.js';
@@ -13,6 +14,26 @@ app.set('port', PORT);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/', router);
+
+app.use(cors({
+  origin: "*",
+  methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH']
+}));
+
+/*
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+app.get('/', function(req, res, next) {
+// Handle the get for this route
+});
+
+app.post('/', function(req, res, next) {
+// Handle the post for this route
+});*/
 
 // cleanup all database connections on EXIT
 function cleanup () {

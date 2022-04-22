@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Question from "./Question"
+import axios from 'axios';
 
 class CreateSurvey extends Component {
 
@@ -66,10 +67,30 @@ class CreateSurvey extends Component {
 
   submit = event => { //Submit the survey, combine the survey data to a single array
     alert(JSON.stringify(this.state.responses))
+    let survey_questions = []
+    for (let i = 1; i < this.state.responses.length; i++) {
+      survey_questions.push({type: "FreeInput", question: this.state.responses[i]})
+    }
     //At this point, this.state.title stores the title of the survey, this.state.responses stores all questions (including title)
-    this.setState({
-      submitted: true
+    axios.post("http://localhost:5000/add_survey/:" + localStorage.getItem("user_id"), {
+      survey_name: this.state.title,
+      questions: survey_questions
     })
+    .then((response) => {
+      if (response.data === "success"){//We store info about the current user locally in browser
+        this.setState({
+          submitted: true
+        })
+      }
+      else {
+        console.log("error")
+        alert("error")
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("error");
+    });
     event.preventDefault();
   }
 

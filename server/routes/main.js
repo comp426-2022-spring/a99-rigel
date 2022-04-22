@@ -24,3 +24,4 @@ router.get('/all_results', api.all_results);
 router.get('/result/:surveyid', api.result);
 
 export default router;
+

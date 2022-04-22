@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import axios from 'axios';
 import Question from "./Question"
 
 //Axios call example:
@@ -23,7 +24,27 @@ class Survey extends Component {
   }
 
   componentDidMount() {//After mounting, we will make post request for survey data, and add this to the component state
+    axios.get("http://localhost:5000/all_surveys")
+    .then((response) => {
+      alert("test")
+      const surveys = response.data
+      window.addEventListener('beforeunload', this.remove_tokens());
+      const surveyComponents = surveys.map((survey) =>//Surprised this works
+          <li onClick = {() => this.openSurvey(survey.survey_id)} class = "surveyComponent">
+              {survey.survey_name}
+          </li>, this
+      );
+      this.setState({
+          surveys: surveys,
+          surveyComponents: surveyComponents,
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("Error!!!!!!");
+    });
    //Displays the survey list
+   /*
     const surveys = [{name: "How are you feeling?", id: 1}, //Testing w/out backend interaction 
                    {name: "How is your day?", id: 2},
                    {name: "Whats up bro?", id: 3},
@@ -32,17 +53,8 @@ class Survey extends Component {
                    {name: "Tell me how many cars have you stolen?", id: 6},
                    {name: "Tell me how many cars have you stolen?", id: 7},
                    {name: "Tell me how many cars have you stolen?", id: 8}
-                  ]
-    window.addEventListener('beforeunload', this.remove_tokens());
-    const surveyComponents = surveys.map((survey) =>//Surprised this works
-        <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
-            {survey.name}
-        </li>, this
-    );
-    this.setState({
-        surveys: surveys,
-        surveyComponents: surveyComponents,
-    });
+                  ]*/
+    
   }
 
   handleAnswerChange = (new_answer, index) => { //Handles whenever theres an answer change in a child Question component
@@ -66,43 +78,78 @@ class Survey extends Component {
   openSurvey = survey_id => {
     //Displays an opened survey
     //At this point there would be an API call using the survey_id to get the questions from serve
-    localStorage.setItem("taking_survey", "T");
-    localStorage.setItem("curr_survey_id", survey_id)
-    const survey_data = [
-      {question: "q1 answer here?", type: "free-response"},
-      {question: "q2 answer here?", type: "free-response"},
-      {question: "q3 answer here?", type: "free-response"},
-      {question: "Please rate?", type: "free-response"},
-      {question: "Any thing else?", type: "free-response"},
-      {question: "Final question!", type: "free-response"},
-    ]
-    let question_strings = [];
-    let questions = [];
-    for (let i = 0; i < survey_data.length; i++) {
-      questions.push(<Question question = {survey_data[i].question} index = {i} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>)
-      question_strings.push(survey_data[i].question)
-    }
-    this.setState({ //Initializing state variables for survey-taking mode
-      survey_questions_render: questions,
-      survey_questions: question_strings,
-      survey_answers: new Array(survey_data.length).fill("")
+    axios.get("http://localhost:5000/survey/:"+survey_id)
+    .then((response) => {
+      const survey = response
+      const survey_data = survey.questions
+      localStorage.setItem("taking_survey", "T");
+      localStorage.setItem("curr_survey_id", survey_id)
+      /*const survey_data = [
+        {question: "q1 answer here?", type: "free-response"},
+        {question: "q2 answer here?", type: "free-response"},
+        {question: "q3 answer here?", type: "free-response"},
+        {question: "Please rate?", type: "free-response"},
+        {question: "Any thing else?", type: "free-response"},
+        {question: "Final question!", type: "free-response"},
+      ]*/
+      let question_strings = [];
+      let questions = [];
+      for (let i = 0; i < survey_data.length; i++) {
+        questions.push(<Question question = {survey_data[i].question} index = {i} handleChange = {(new_answer, index) => this.handleAnswerChange(new_answer, index)}/>)
+        question_strings.push(survey_data[i].question)
+      }
+      this.setState({ //Initializing state variables for survey-taking mode
+        survey_questions_render: questions,
+        survey_questions: question_strings,
+        survey_answers: new Array(survey_data.length).fill("")
+      })
     })
+    .catch(function (error) {
+      console.log(error);
+      alert("Error registering");
+    });
   }
 
   submitSurvey = event => { //Submit the survey, combine the survey data to a single array
-    localStorage.removeItem("taking_survey")
-    localStorage.removeItem("curr_survey_id")
     let survey_answers = [];
     for (let i = 0; i < this.state.survey_questions.length; i++) {
       survey_answers.push(this.state.survey_answers[i.toString()])
     }
+    /*
     let res = [];
     for (let k = 0; k < survey_answers.length; k++) {
       res.push({question: this.state.survey_questions[k], answer: survey_answers[k]})
+    }*/
+    let res = [];
+    for (let j = 0; j < survey_answers.length; j++) {
+      res.push({type: "FreeInput", text: survey_answers[j]})
     }
     alert(JSON.stringify(res));//Res is an array of objects, each object has two fields: question and the corresponding answer
     //Each question and its corresponding answer in the survey is accounted for
     //Fill in an appropriate axios post request here
+    axios.post("http://localhost:5000/add_result/:" + localStorage.getItem("curr_survey_id"), {
+      result: res
+    })
+    .then((response) => {
+      if (response.data === "success"){//We store info about the current user locally in browser
+        localStorage.setItem("token", "T"); //Tracks if the user is logged in
+        localStorage.setItem("username", response.data.username); 
+        this.setState({
+          islogged: true
+        });
+      }
+      else {
+        console.log("error")
+        alert("error")
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("Error: invalid username or password");
+    });
+
+    localStorage.removeItem("taking_survey")
+    localStorage.removeItem("curr_survey_id")
     window.location.reload(false); //Reload the page so the tokens are cleared and survey list is displayed again
 
   }
