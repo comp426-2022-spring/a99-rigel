@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import QandABox from "./QandABox"
+import axios from 'axios';
 
 class MySurvey extends Component {
 
@@ -18,20 +19,24 @@ class MySurvey extends Component {
     localStorage.removeItem("viewing_survey")
   }
 
-  componentDidMount() {//After mounting, we will make post request for survey data, and add this to the component state
-    const surveys = [{name: "Public health survey", id: 1}, //Testing w/out backend interaction 
-                    {name: "Weekend survey", id: 2},
-                    {name: "Music survey", id: 3}]
-    const surveyComponents = surveys.map((survey) =>//Surprised this works
-        <li onClick = {() => this.openSurvey(survey.id)} class = "surveyComponent">
-            {survey.name}
-        </li>, this
-    );
-    this.setState({
-        surveys: surveys,
-        surveyComponents: surveyComponents,
-    });
-    window.addEventListener('beforeunload', this.remove_tokens());
+  componentDidMount() {//After mounting, we will make get request for survey data, and add this to the component state
+    axios.get("http://localhost:5000/surveys/:"+localStorage.getItem("user_id"))
+    .then((response) => {
+      const surveys = response.data
+      /*const surveys = [{name: "Public health survey", id: 1}, //Testing w/out backend interaction 
+                      {name: "Weekend survey", id: 2},
+                      {name: "Music survey", id: 3}]*/
+      const surveyComponents = surveys.map((survey) =>//Surprised this works
+          <li onClick = {() => this.openSurvey(survey.survey_id)} class = "surveyComponent">
+              {survey.survey_name}
+          </li>, this
+      );
+      this.setState({
+          surveys: surveys,
+          surveyComponents: surveyComponents,
+      });
+      window.addEventListener('beforeunload', this.remove_tokens());
+    })
   }
 
   componentWillUnmount() {
@@ -42,8 +47,37 @@ class MySurvey extends Component {
   openSurvey = survey_id => {
     //At this point there would be an api call using survey_id to get the questions/responses for this survey
     localStorage.setItem("viewing_survey", "T")
+    let survey_data = {
+      survey_id: 1,
+      survey_name: "",
+      q_and_a: []
+    }
+    axios.get("http://localhost:survey/:"+survey_id)
+    .then((response) => {
+      survey_data.survey_id = response.data.survey_id;
+      survey_data.survey_name = response.data.survey_name;
+      for (let i = 0; i < response.data.questions.length; i++) {
+        survey_data.q_and_a.push({question: response.data.questions[i].question, responses: []})
+      }
+      axios.get("http://localhost:result/:"+survey_id)
+      .then((response) => {
+          for (let k = 0; k < response.data.length; k++) {
+            for (let j = 0; j < response.data[k].result.length; j++) {
+              survey_data.q_and_a[j].responses.push(response.data[k].result[j].text);
+            }
+          }
+          let responses = []
+          for (let i = 0; i < survey_data.q_and_a.length; i++) {
+            responses.push(<QandABox question = {survey_data.q_and_a[i].question} answers = {survey_data.q_and_a[i].responses}/>)
+          }
+          this.setState({ //Initializing state variables for survey-taking mode
+            survey_data: responses,
+            curr_survey_title: survey_data.survey_name
+          })
+      })
+    })
     //Displays an opened survey and its results
-    const survey_data = {
+    /*const survey_data = {
         survey_id: 123,
         survey_name: "Health survey",
         q_and_a: [{question: "Are you overweight?", responses: ["no", "yes", "no", "yes"]},
@@ -51,15 +85,7 @@ class MySurvey extends Component {
                   {question: "What is your age", responses: ["25", "24", "40", "18"]},
                   {question: "How often do you run", responses: ["12 times a day", "Every day", "Never", "Rarely"]}
                  ]
-    }
-    let responses = []
-    for (let i = 0; i < survey_data.q_and_a.length; i++) {
-      responses.push(<QandABox question = {survey_data.q_and_a[i].question} answers = {survey_data.q_and_a[i].responses}/>)
-    }
-    this.setState({ //Initializing state variables for survey-taking mode
-      survey_data: responses,
-      curr_survey_title: survey_data.survey_name
-    })
+    }*/
   }
 
   closeSurvey = event => { //Submit the survey, combine the survey data to a single array

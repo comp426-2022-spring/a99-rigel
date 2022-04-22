@@ -33,14 +33,23 @@ class Register extends Component { //Constructor, initialize the fields of this 
     let password_2 = this.state.registerParams.password_2;
 
     if (username.length !== 0 && password.length !== 0 && password === password_2) {
-      axios.post("http://localhost:5000/app/register", {
-        username: username,
+      axios.post("http://localhost:5000/add_user", {
+        user_name: username,
+        //user_email
+        //user_info
+        //user_intro
         password: password,
       })
       .then((response) => {
-        this.setState({
-          isRegistered: true
-        });
+        if (response.status === "success") {
+          this.setState({
+            isRegistered: true
+          });
+        }
+        else {
+          console.log("error");
+          alert("Error registering");
+        }
       })
       .catch(function (error) {
         console.log(error);
