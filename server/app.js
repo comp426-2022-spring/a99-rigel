@@ -1,5 +1,4 @@
-const express = require('express');
-const mongodb = require('mongodb');
+const express = require('express')
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
 
