@@ -82,7 +82,7 @@ class Profile extends Component {
     if (this.state.deleting_account) {
       return (
         <div className="container">
-            <h1 class = "surveyListHeader">User: {this.state.username}</h1><br/>
+            <h1 className = "surveyListHeader">User: {this.state.username}</h1><br/>
             <p>Profile deletion is not reversible. Are you sure you wish to delete?</p>
             <button className = "center" onClick = {this.deleteAccount}>Yes</button> <br/>
             <button className = "center" onClick = {this.close}>No, take me back</button>
@@ -92,7 +92,7 @@ class Profile extends Component {
     if (this.state.changing_pass) {
         return (
             <div className="container">
-                <h1 class = "surveyListHeader">User: {this.state.username}</h1><br/>
+                <h1 className = "surveyListHeader">User: {this.state.username}</h1><br/>
                 <p>Hint: the default username is user123 and the default password is abcd123</p>
                 <Question question = "Enter old password" index = {0} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password" index = {1} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
@@ -104,7 +104,7 @@ class Profile extends Component {
     }
     return (
       <div className="container">
-        <h1 class = "surveyListHeader">User: {this.state.username}</h1><br/>
+        <h1 className = "surveyListHeader">User: {this.state.username}</h1><br/>
         <button className = "center" onClick = {this.changePass}>Change password</button><br/>
         <button className = "center" onClick = {this.deletingAccount}>Delete Profile</button>
       </div>

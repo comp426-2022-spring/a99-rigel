@@ -16,7 +16,7 @@ export default function App() {
     <Router>
       <Switch>
         <Route path="/login">
-          <Dashboard />
+          <Login />
         </Route>
         <Route path="/register">
           <Register />

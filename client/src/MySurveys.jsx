@@ -20,7 +20,7 @@ class MySurvey extends Component {
   }
 
   componentDidMount() {//After mounting, we will make get request for survey data, and add this to the component state
-    axios.get("http://localhost:5000/surveys/:"+localStorage.getItem("user_id"))
+    axios.get("http://localhost:5000/surveys/"+localStorage.getItem("user_id"))
     .then((response) => {
       const surveys = response.data
       /*const surveys = [{name: "Public health survey", id: 1}, //Testing w/out backend interaction 
@@ -48,18 +48,18 @@ class MySurvey extends Component {
     //At this point there would be an api call using survey_id to get the questions/responses for this survey
     localStorage.setItem("viewing_survey", "T")
     let survey_data = {
-      survey_id: 1,
+      survey_id: -1,
       survey_name: "",
       q_and_a: []
     }
-    axios.get("http://localhost:survey/:"+survey_id)
+    axios.get("http://localhost:5000/survey/"+survey_id)
     .then((response) => {
       survey_data.survey_id = response.data.survey_id;
       survey_data.survey_name = response.data.survey_name;
       for (let i = 0; i < response.data.questions.length; i++) {
         survey_data.q_and_a.push({question: response.data.questions[i].question, responses: []})
       }
-      axios.get("http://localhost:result/:"+survey_id)
+      axios.get("http://localhost:5000/result/"+survey_id)
       .then((response) => {
           for (let k = 0; k < response.data.length; k++) {
             for (let j = 0; j < response.data[k].result.length; j++) {
@@ -88,7 +88,7 @@ class MySurvey extends Component {
     }*/
   }
 
-  closeSurvey = event => { //Submit the survey, combine the survey data to a single array
+  closeSurvey = event => {
     localStorage.removeItem("viewing_survey")
     this.setState({
         survey_data: [],

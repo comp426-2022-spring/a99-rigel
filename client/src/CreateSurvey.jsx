@@ -72,20 +72,14 @@ class CreateSurvey extends Component {
       survey_questions.push({type: "FreeInput", question: this.state.responses[i]})
     }
     //At this point, this.state.title stores the title of the survey, this.state.responses stores all questions (including title)
-    axios.post("http://localhost:5000/add_survey/:" + localStorage.getItem("user_id"), {
+    axios.post("http://localhost:5000/add_survey/" + localStorage.getItem("user_id"), {
       survey_name: this.state.title,
       questions: survey_questions
     })
     .then((response) => {
-      if (response.data === "success"){//We store info about the current user locally in browser
-        this.setState({
-          submitted: true
-        })
-      }
-      else {
-        console.log("error")
-        alert("error")
-      }
+      this.setState({
+        submitted: true
+      })
     })
     .catch(function (error) {
       console.log(error);
@@ -102,7 +96,7 @@ class CreateSurvey extends Component {
     return (
         <div>
           <br/>
-          <h1 class = "surveyListHeader"> Create New Survey</h1>
+          <h1 className = "surveyListHeader"> Create New Survey</h1>
           {questions}
           <button onClick = {this.addQuestion} className = "center">
             Add question
