@@ -2,14 +2,6 @@ import React, { Component, Fragment } from "react";
 import axios from 'axios';
 import Question from "./Question"
 
-//Axios call example:
-/*
-axios.get("http://localhost:5000/app/surveys/")
-.then((response) => {
-  
-})
-*/
-
 class Survey extends Component {
   constructor(props) { //Constructor, initialize fields
     super(props);

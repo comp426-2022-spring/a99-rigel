@@ -23,9 +23,6 @@ class MySurvey extends Component {
     axios.get("http://localhost:5000/surveys/"+localStorage.getItem("user_id"))
     .then((response) => {
       const surveys = response.data
-      /*const surveys = [{name: "Public health survey", id: 1}, //Testing w/out backend interaction 
-                      {name: "Weekend survey", id: 2},
-                      {name: "Music survey", id: 3}]*/
       const surveyComponents = surveys.map((survey) =>//Surprised this works
           <li onClick = {() => this.openSurvey(survey.survey_id)} class = "surveyComponent">
               {survey.survey_name}
@@ -76,16 +73,6 @@ class MySurvey extends Component {
           })
       })
     })
-    //Displays an opened survey and its results
-    /*const survey_data = {
-        survey_id: 123,
-        survey_name: "Health survey",
-        q_and_a: [{question: "Are you overweight?", responses: ["no", "yes", "no", "yes"]},
-                  {question: "Are you diabetic?", responses: ["no", "yes", "no", "yes"]},
-                  {question: "What is your age", responses: ["25", "24", "40", "18"]},
-                  {question: "How often do you run", responses: ["12 times a day", "Every day", "Never", "Rarely"]}
-                 ]
-    }*/
   }
 
   closeSurvey = event => {
