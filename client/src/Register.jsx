@@ -14,6 +14,9 @@ class Register extends Component { //Constructor, initialize the fields of this 
         username: "",
         password: "",
         password_2: "",
+        email: "",
+        info: "",
+        intro: ""
       }
     };
   }
@@ -34,27 +37,22 @@ class Register extends Component { //Constructor, initialize the fields of this 
 
     if (username.length !== 0 && password.length !== 0 && password === password_2) {
       axios.post("http://localhost:5000/add_user", {
-        user_name: username,
-        //user_email
-        //user_info
-        //user_intro
-        password: password,
+        user_name: this.state.registerParams.username,
+        user_email: this.state.registerParams.email,
+        user_info: this.state.registerParams.info,
+        user_intro: this.state.registerParams.intro,
+        password: this.state.registerParams.password
       })
       .then((response) => {
-        if (response.status === "success") {
-          this.setState({
-            isRegistered: true
-          });
-        }
-        else {
-          console.log("error");
-          alert("Error registering");
-        }
+        alert(JSON.stringify(response))
+        this.setState({
+          isRegistered: true
+        });
       })
       .catch(function (error) {
         console.log(error);
-        alert("Error registering");
-      });      
+        alert("Error with registration HTTP request");
+      });
     }
     else {
       console.log("Error");
@@ -82,6 +80,12 @@ class Register extends Component { //Constructor, initialize the fields of this 
               />
               <input
                 type="text"
+                name="email"
+                onChange={this.handleFormChange}
+                placeholder="Enter Your Email"
+              />
+              <input
+                type="text"
                 name="password"
                 onChange={this.handleFormChange}
                 placeholder="Enter New Password"
@@ -91,6 +95,18 @@ class Register extends Component { //Constructor, initialize the fields of this 
                 name="password_2"
                 onChange={this.handleFormChange}
                 placeholder="Enter Password Again"
+              />
+              <input
+                type="text"
+                name="intro"
+                onChange={this.handleFormChange}
+                placeholder="Introduce Yourself! (Optional)"
+              />
+              <input
+                type="text"
+                name="info"
+                onChange={this.handleFormChange}
+                placeholder="Any other Information you'd like to share? (Optional)"
               />
               <input type="submit" value="Register" />
             </div>
