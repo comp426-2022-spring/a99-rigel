@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
 
 // function to creat jwt
 const maxAge = 3 * 24 * 60 * 60;
@@ -21,14 +23,10 @@ module.exports.register_get = (req, res) => {
     const user = req.app.get('db').collection('user');
     
     if (scheme.validate_user(req.body)) {
-      // create and send a token
-      const token = createToken(user._id);
-      res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-      res.status(201).json({ user: user._id });
+      
         
       
       const data = {
-
         user_name: req.body.user_name,
         user_email: req.body.user_email,
         email_verified: true,
@@ -41,16 +39,29 @@ module.exports.register_get = (req, res) => {
           status: 'error',
           debug: resdb
         });
-        else res.send({
-          status: 'sucess',
-          result: resdb
-        });
+        // create and send a token
+        const token = createToken(user.findOne(user.ObjectId));
+        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+        res.status(201).json({ user: user.ObjectId });
       });
     }
   }
   
   module.exports.login_post = async (req, res) => {
+    const User = req.app.get('db').collection('user');
+    
+    // create and send a token
+    const token = createToken(User.findOne(user.ObjectId));
+    res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+    
     const {username, password} = req.body;
-    console.log(username, password);
-    res.send('user login');
+    const user = await User.findOne({ username });
+    if (user) {
+      const auth = await bcrypt.compare(password, user.password);
+      if (auth) {
+        res.status(200).json({ user: user.ObjectId})
+      }
+      throw Error('incorrect password');
+    }
+    throw Error('incorrect email');
   }

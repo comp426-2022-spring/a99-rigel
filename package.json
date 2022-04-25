@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/comp426-2022-spring/a99-rigel#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "concurrently": "^7.1.0"
   }
 }
