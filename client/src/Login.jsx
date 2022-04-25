@@ -48,7 +48,6 @@ class Login extends Component {
       }
     })
     .catch(function (error) {
-      alert(username + user_password)
       alert(JSON.stringify(error))
       alert("Error with HTTP request");
     });
