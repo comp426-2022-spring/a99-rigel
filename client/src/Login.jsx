@@ -25,32 +25,34 @@ class Login extends Component {
   };
  
   login = event => {  //Post request to server containing the current user_id and user_password fields
-    /*
-    let user_id = this.state.loginParams.user_id;
-    let user_password = this.state.loginParams.user_password;
-    axios.post("http://localhost:5000/app/login", {
-      username: user_id,
-      pass: user_password
+    const username = this.state.loginParams.user_id;
+    const user_password = this.state.loginParams.user_password;
+    axios.post("http://localhost:5000/login", {
+      username: username,
+      password: user_password
     })
     .then((response) => {
+      alert(JSON.stringify(response))
       if (response.data.status === 1){//We store info about the current user locally in browser
-        localStorage.setItem("token", "T"); //Tracks if the user is logged in
-        localStorage.setItem("username", response.data.username); 
+        localStorage.setItem("token", "T")
+        localStorage.setItem("username", username); 
+        localStorage.setItem("password", user_password);
+        localStorage.setItem("user_id", "5");
         this.setState({
           islogged: true
         });
       }
+      else {
+        alert(JSON.stringify(response))
+        alert("Error: Invalid input")
+      }
     })
     .catch(function (error) {
-      console.log(error);
-      alert("Error: invalid username or password");
+      alert(username + user_password)
+      alert(JSON.stringify(error))
+      alert("Error with HTTP request");
     });
     event.preventDefault();
-    */
-    localStorage.setItem("token", "T")
-    localStorage.setItem("username", "user123"); 
-    localStorage.setItem("password", "abcd123");
-    localStorage.setItem("user_id", "5");
   };
 
   render() { //Render component

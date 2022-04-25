@@ -39,23 +39,23 @@ class Register extends Component { //Constructor, initialize the fields of this 
       axios.post("http://localhost:5000/add_user", {
         user_name: this.state.registerParams.username,
         user_email: this.state.registerParams.email,
-        user_info: this.state.registerParams.info,
+        user_infor: this.state.registerParams.info,
         user_intro: this.state.registerParams.intro,
         password: this.state.registerParams.password
       })
       .then((response) => {
         alert(JSON.stringify(response))
-        this.setState({
-          isRegistered: true
-        });
+        if (response.data.status == "sucess") {
+          this.setState({
+            isRegistered: true
+          });
+        }
       })
       .catch(function (error) {
-        console.log(error);
         alert("Error with registration HTTP request");
       });
     }
     else {
-      console.log("Error");
       alert("Error: please enter valid inputs. Make sure passwords match.")
     }
     event.preventDefault();
