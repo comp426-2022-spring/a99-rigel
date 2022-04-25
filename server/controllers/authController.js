@@ -20,30 +20,32 @@ module.exports.register_get = (req, res) => {
   module.exports.register_post = (req, res) => {
     const user = req.app.get('db').collection('user');
     
-    // create and send a token
-    const token = createToken(user._id);
-    res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-    res.status(201).json({ user: user._id });
-    
     if (scheme.validate_user(req.body)) {
-        const data = {
-            user_name: req.body.user_name,
-            user_email: req.body.user_email,
-            email_verified: true,
-            user_info: req.body.user_info,
-            user_intro: "This user doesn't create an introduction."
-        };
+      // create and send a token
+      const token = createToken(user._id);
+      res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+      res.status(201).json({ user: user._id });
+        
+      
+      const data = {
 
-        user.insertOne(data, (err, resdb) => {
-            if (err) res.send({
-                status: 'error',
-                debug: resdb
-            });
-            else res.send({
-                status: 'sucess',
-                result: resdb
-            });
+        user_name: req.body.user_name,
+        user_email: req.body.user_email,
+        email_verified: true,
+        user_info: req.body.user_info,
+        user_intro: "This user doesn't create an introduction."
+      };
+
+      user.insertOne(data, (err, resdb) => {
+        if (err) res.send({
+          status: 'error',
+          debug: resdb
         });
+        else res.send({
+          status: 'sucess',
+          result: resdb
+        });
+      });
     }
   }
   
