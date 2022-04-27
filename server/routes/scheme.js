@@ -10,7 +10,9 @@ export function validate_user(params) {
 
     const {email, username, password} = params;
 
-    if (user.findOne({user_email: email}) == null && user.findOne({user_name: username}) == null) {
+    const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
+
+    if (valid) {
         return true;
     } else {
         return false;
