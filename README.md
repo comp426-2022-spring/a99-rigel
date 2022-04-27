@@ -12,6 +12,8 @@ We created a platform that allows researchers to post public health related surv
 
 ## API Endpoints
 
+To take a look at our API documentation, [I'm an inline-style link with title](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/api-endpoints.md "Google's Homepage").
+
 ## Database Schema
 
 ## Team Roles
