@@ -6,5 +6,13 @@
  */
 export function validate_user(params) {
     // TODO: need to implement user validator
-    return true;
+    const user = req.app.get('db').collection('user');
+
+    const {email, username, password} = params;
+
+    if (user.findOne({user_email: email}) == null && user.findOne({user_name: username}) == null) {
+        return true;
+    } else {
+        return false;
+    }
 } 
