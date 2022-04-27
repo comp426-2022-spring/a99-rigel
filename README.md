@@ -1,16 +1,24 @@
 # a99 Final Project
 
-## UPDATE
-
-You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.
+# Public Health Survey Dashboard
 
 ## Summary 
 
-COMP426 final project template repository.
-All your code and documentation goes here.
-Change this text to be a brief description of your final project.
-Put the name of your project in the header above.
-You will change everything below to be the main technical documentation, as outlined below.
+We created a platform that allows researchers to post public health related surveys, let users submit their responses to these surveys, and then let the researchers see their response. In todays day in age, information is gold. This dashboard provides a central place for researchers to conduct relevant research in the public health space. The researcher can create new surveys, see existing research surveys, and see the results to their own survey. Essentially, it is a one-stop shop for public health surveys.
+
+## Demo
+
+## Tech Stack
+
+## API Endpoints
+
+## Database Schema
+
+## Team Roles
+
+## Project Planning
+
+## Dependencies List
 
 ## First steps
 
