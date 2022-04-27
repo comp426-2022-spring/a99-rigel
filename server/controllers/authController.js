@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 const { ObjectId } = require('mongodb');
 
 // function to creat jwt
