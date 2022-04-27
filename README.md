@@ -20,6 +20,8 @@ To take a look at our Database Schema documentation, [click here](https://github
 
 ## Team Roles
 
+Here our the [team roles](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/team-roles.md).
+
 ## Project Planning
 
 ## Dependencies List
