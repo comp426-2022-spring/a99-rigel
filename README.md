@@ -10,6 +10,8 @@ We created a platform that allows researchers to post public health related surv
 
 ## Tech Stack
 
+To take a look at our Tech Stack, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/tech-stack.md).
+
 ## API Endpoints
 
 To take a look at our API documentation, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/api-endpoints.md).
