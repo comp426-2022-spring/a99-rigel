@@ -1,3 +1,4 @@
+/*
 const jwt = require('jsonwebtoken');
 // const bcrypt = require('bcrypt');
 import bcrypt from 'bcrypt';
@@ -12,15 +13,7 @@ const createToken = (id) => {
 }
 
 // controller actions
-module.exports.register_get = (req, res) => {
-    res.render('Register');
-  }
-  
-  module.exports.login_get = (req, res) => {
-    res.render('Login');
-  }
-  
-  module.exports.register_post = (req, res) => {
+  export function register_post(req, res){
     const user = req.app.get('db').collection('user');
     
     if (scheme.validate_user(req.body)) {    
@@ -30,7 +23,7 @@ module.exports.register_get = (req, res) => {
         user_password : req.user_password,
         email_verified: true,
         user_info: req.body.user_info,
-        user_intro: "This user doesn't create an introduction."
+        user_intro: req.body.user_intro,
       };
 
       user.insertOne(data, (err, resdb) => {
@@ -46,7 +39,7 @@ module.exports.register_get = (req, res) => {
     }
   }
   
-  module.exports.login_post = async (req, res) => {
+  export async function login_post(req, res) {
     const User = req.app.get('db').collection('user');
     
     // create and send a token
@@ -63,4 +56,4 @@ module.exports.register_get = (req, res) => {
       throw Error('incorrect password');
     }
     throw Error('incorrect email');
-  }
+  }*/

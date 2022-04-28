@@ -33,18 +33,17 @@ class Register extends Component { //Constructor, initialize the fields of this 
     let username = this.state.registerParams.username;
     let password = this.state.registerParams.password;
     let password_2 = this.state.registerParams.password_2;
-    const saltRounds = 10;
     if (username.length !== 0 && password.length !== 0 && password === password_2) {
       axios.post("http://localhost:5000/register", {
         user_name: this.state.registerParams.username,
         user_email: this.state.registerParams.email,
-        user_infor: this.state.registerParams.info,
+        user_info: this.state.registerParams.info,
         user_intro: this.state.registerParams.intro,
-        password: password
+        user_password: password
       })
       .then((response) => {
         alert(JSON.stringify(response))
-        if (response.data.status == "sucess") {
+        if (response.status == 201) {
           this.setState({
             isRegistered: true
           });
@@ -55,6 +54,8 @@ class Register extends Component { //Constructor, initialize the fields of this 
       })
       .catch(function (error) {
         alert("Error with registration HTTP request");
+        alert(JSON.stringify(error))
+        console.log(JSON.stringify(error))
       });
     }
     else {
