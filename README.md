@@ -10,9 +10,11 @@ We created a platform that allows researchers to post public health related surv
 
 ## Tech Stack
 
+To take a look at our Tech Stack, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/tech-stack.md).
+
 ## API Endpoints
 
-To take a look at our API documentation, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/api-endpoints.md).
+To take a look at our API documentation, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/api-endpoints.md). Our route endpoint is ```http://HOST/```
 
 ## Database Schema
 
@@ -24,7 +26,18 @@ Here our the [team roles](https://github.com/comp426-2022-spring/a99-rigel/blob/
 
 ## Project Planning
 
+We used groupme to communicate in real time between team members. In order to scope and plan our project we utilized the projects feature within github. Here we were able to create to-dos, in progress, done cards. We also met over zoom and have meeting notes in the projects tab. To take a look at our project planning, [click here](https://github.com/comp426-2022-spring/a99-rigel/projects/1)
+
 ## Dependencies List
+    1. Concurrently
+    2. Bcrypt
+    3. Cookie-parser
+    4. Cors
+    5. Express
+    6. MongoDb
+    7. Bootstrap
+    8. React
+    9. Axios
 
 ## First steps
 
