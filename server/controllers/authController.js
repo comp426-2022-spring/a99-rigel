@@ -22,10 +22,7 @@ module.exports.register_get = (req, res) => {
   module.exports.register_post = (req, res) => {
     const user = req.app.get('db').collection('user');
     
-    if (scheme.validate_user(req.body)) {
-      
-        
-      
+    if (scheme.validate_user(req.body)) {    
       const data = {
         user_name: req.body.user_name,
         user_email: req.body.user_email,

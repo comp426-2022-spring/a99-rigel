@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import {Link} from "react-router-dom";
 import axios from "axios";
-import image from "./resources/FindYourFitLogo.png";
 import "./styles/Login.css";
 
 class Register extends Component { //Constructor, initialize the fields of this component
@@ -34,14 +33,14 @@ class Register extends Component { //Constructor, initialize the fields of this 
     let username = this.state.registerParams.username;
     let password = this.state.registerParams.password;
     let password_2 = this.state.registerParams.password_2;
-
+    const saltRounds = 10;
     if (username.length !== 0 && password.length !== 0 && password === password_2) {
-      axios.post("http://localhost:5000/add_user", {
+      axios.post("http://localhost:5000/register", {
         user_name: this.state.registerParams.username,
         user_email: this.state.registerParams.email,
         user_infor: this.state.registerParams.info,
         user_intro: this.state.registerParams.intro,
-        password: this.state.registerParams.password
+        password: password
       })
       .then((response) => {
         alert(JSON.stringify(response))
@@ -49,6 +48,9 @@ class Register extends Component { //Constructor, initialize the fields of this 
           this.setState({
             isRegistered: true
           });
+        }
+        else {
+          alert("Error registering")
         }
       })
       .catch(function (error) {
@@ -66,8 +68,9 @@ class Register extends Component { //Constructor, initialize the fields of this 
       return <Redirect to="/" />;
     }
     return (
+      <div>
+      <br/>
       <div className="container">
-        <img src = {image} className = "center"></img><br/>
         <form onSubmit={this.register} className="form-register">
           <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
           <div className="row">
@@ -117,6 +120,7 @@ class Register extends Component { //Constructor, initialize the fields of this 
             Back to Login
           </button>
         </Link>
+      </div>
       </div>
     );
   }

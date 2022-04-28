@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import axios from 'axios';
-import image from "./resources/FindYourFitLogo.png"
 import "./styles/Login.css";
 
 class Login extends Component {
@@ -15,6 +14,7 @@ class Login extends Component {
       }
     };
   }
+
   handleFormChange = event => { //Updates the user_id field or user_password field any time the user types
     let loginParamsNew = { ...this.state.loginParams };
     let val = event.target.value;
@@ -59,8 +59,9 @@ class Login extends Component {
       return <Redirect to="/" />;
     }
     return (
+    <div>
+      <br/>
       <div className="container">
-        <img src = {image} className = "center"></img><br/>
         <form onSubmit={this.login} className="form-signin">
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
           <div className="row">
@@ -87,6 +88,7 @@ class Login extends Component {
           </div>
         </form>
       </div>
+    </div>
     );
   }
 }
