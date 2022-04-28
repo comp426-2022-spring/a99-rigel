@@ -42,6 +42,7 @@ class Register extends Component { //Constructor, initialize the fields of this 
         user_password: password
       })
       .then((response) => {
+        alert("Request went thru")
         alert(JSON.stringify(response))
         if (response.status == 201) {
           this.setState({
@@ -55,7 +56,6 @@ class Register extends Component { //Constructor, initialize the fields of this 
       .catch(function (error) {
         alert("Error with registration HTTP request");
         alert(JSON.stringify(error))
-        console.log(JSON.stringify(error))
       });
     }
     else {

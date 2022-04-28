@@ -1,8 +1,6 @@
 import { ObjectId } from 'mongodb';
-import * as scheme from './scheme.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
-
 
 
 // function to creat jwt
@@ -190,10 +188,9 @@ export function all_results(req, res) {
 // controller actions
 export function register_post(req, res){
     const user = req.app.get('db').collection('user');
-
-    alert(JSON.stringify(req));
-
-    if (scheme.validate_user(req.body)) {    
+    console.log("HIIIII")
+    console.log(req)
+    if (validate_user(req.body, req)) {  
         const data = {
             user_name: req.body.user_name,
             user_email: req.body.user_email,
@@ -213,6 +210,9 @@ export function register_post(req, res){
             res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
             res.status(201).json({ user: user.ObjectId });
         });
+    }
+    else {
+        res.status(510).json({message: "Error: your account has already been registered"});
     }
 }
 
@@ -235,3 +235,22 @@ export async function login_post(req, res) {
     }
     throw Error('incorrect email');
 }
+
+
+function validate_user(params, req) {
+    // TODO: need to implement user validator
+    const user = req.app.get('db').collection('user');
+
+    const email = params.user_email;
+    const username = params.user_name;
+    const password = params.user_password
+
+    const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
+    console.log("Hi again")
+    console.log(valid)
+    if (valid == null) {
+        return true;
+    } else {
+        return false;
+    }
+} 
