@@ -30,6 +30,7 @@ module.exports.register_get = (req, res) => {
       const data = {
         user_name: req.body.user_name,
         user_email: req.body.user_email,
+        user_password : req.user_password,
         email_verified: true,
         user_info: req.body.user_info,
         user_intro: "This user doesn't create an introduction."
