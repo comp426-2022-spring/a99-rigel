@@ -191,6 +191,8 @@ export function all_results(req, res) {
 export function register_post(req, res){
     const user = req.app.get('db').collection('user');
 
+    alert(JSON.stringify(req));
+
     if (scheme.validate_user(req.body)) {    
         const data = {
         user_name: req.body.user_name,
