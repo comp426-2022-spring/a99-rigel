@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 const { ObjectId } = require('mongodb');
 
 // function to creat jwt
@@ -37,7 +38,7 @@ module.exports.register_get = (req, res) => {
           debug: resdb
         });
         // create and send a token
-        const token = createToken(user.findOne(user.ObjectId));
+        const token = createToken(user.findOne({'user_id': user.ObjectId}));
         res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
         res.status(201).json({ user: user.ObjectId });
       });
@@ -48,11 +49,11 @@ module.exports.register_get = (req, res) => {
     const User = req.app.get('db').collection('user');
     
     // create and send a token
-    const token = createToken(User.findOne(user.ObjectId));
+    const token = createToken(User.findOne({'user_id': user.ObjectId}));
     res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
     
     const {username, password} = req.body;
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ user_name: username });
     if (user) {
       const auth = await bcrypt.compare(password, user.password);
       if (auth) {
