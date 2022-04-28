@@ -6,16 +6,15 @@
  */
 export function validate_user(params) {
     // TODO: need to implement user validator
-    // const user = req.app.get('db').collection('user');
+    const user = req.app.get('db').collection('user');
 
-    // const {email, username, password} = params;
+    const {email, username, password} = params;
 
-    // const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
+    const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
 
-    // if (valid) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
-    return true;
+    if (valid) {
+        return true;
+    } else {
+        return false;
+    }
 } 
