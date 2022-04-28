@@ -14,7 +14,7 @@ To take a look at our Tech Stack, [click here](https://github.com/comp426-2022-s
 
 ## API Endpoints
 
-To take a look at our API documentation, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/api-endpoints.md).
+To take a look at our API documentation, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/api-endpoints.md). Our route endpoint is ```http://HOST/```
 
 ## Database Schema
 
