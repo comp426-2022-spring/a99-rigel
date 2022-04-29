@@ -5,31 +5,31 @@ import * as user from './user.js';
 
 const router = Router();
 
-router.get('/', dev.index);
-router.get('/hello/:name', dev.hello);
-router.get('/all_users', dev.all_users);
-router.get('/user/:id', api.user);
-router.post('/add_user', api.add_user);
 
-router.get('/all_surveys', dev.all_surveys);
+// user register and login
+router.post('/register', user.register_post);
+router.post('/login', user.login_post);
+router.get('/user/:id', api.user);
+
 // Surveys not including users
 router.get('/home/:userid', api.certain_surveys)
+
 // Surveys for given user
 router.get('/surveys/:userid', api.user_surveys)
 router.post('/add_survey/:userid', api.add_survey);
+
 // Specific survey data
 router.get('/survey/:surveyid', api.survey);
-
 router.post('/add_result/:surveyid', api.add_result);
-router.get('/all_results', dev.all_results);
-// Results for a specific survey
 router.get('/result/:surveyid', api.result);
 
+// development API
+router.get('/all_users', dev.all_users);
+router.get('/all_surveys', dev.all_surveys);
+router.get('/all_results', dev.all_results);
 router.get('/log', dev.all_logs);
-
-
-router.post('/register', user.register_post);
-router.post('/login', user.login_post);
+router.get('/', dev.index);
+router.get('/hello/:name', dev.hello);
 
 export default router;
 
