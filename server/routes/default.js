@@ -227,15 +227,8 @@ export async function login_post(req, res) {
     const email = req.body.user_email;
     const password = req.body.user_password;
 
-    try {
-      const user = await login(User, email, password);
-      const token = createToken(user.user_id);
-      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.status(200).json({ user: user._id });
-    }
-    catch (err) {
-        res.status(510).json({message: "Nope!"});
-    }
+    const user = User.findOne({user_email: email});
+    user.then(usr => login(usr, password, res));
 }
 
 
@@ -258,16 +251,18 @@ function validate_user(params, req) {
     return true;
 } 
 
-function login(User, email, password) {
-    const user = User.findOne({user_email: email});
+function login(user, password, res) {
     if (user) {
-    //   const auth = await bcrypt.compare(password, user.password);
-    const auth = password.localeCompare(user.user_password);  
-    if (auth) {
-        return user;
-      }
-      throw Error('incorrect password');
+        const auth = password === user.user_password;
+        if (auth) {
+            const token = createToken(user.user_id);
+            res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+            res.status(200).json({ user: user._id });
+        } else {
+            res.status(510).json({message: "Nope! Wrong email or password!"});
+        }
+    } else {
+        res.status(510).json({message: "Nope! Wrong email or password!"})
     }
-    throw Error('incorrect email');
 }
 
