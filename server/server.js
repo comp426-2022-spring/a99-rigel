@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // app.use(function (req, res, next) {
 //   const log = req.app.get('db').collection('log');
-
+/*
   const data = {
     remoteaddr: req.ip,
     user_id: req.user,

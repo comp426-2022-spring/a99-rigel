@@ -28,16 +28,16 @@ class Login extends Component {
     const username = this.state.loginParams.user_id;
     const user_password = this.state.loginParams.user_password;
     axios.post("http://localhost:5000/login", {
-      username: username,
-      password: user_password
+      user_name: username,
+      user_password: user_password
     })
     .then((response) => {
       alert(JSON.stringify(response))
-      if (response.data.status === 1){//We store info about the current user locally in browser
+      if (response.status == 200) {//We store info about the current user locally in browser
         localStorage.setItem("token", "T")
         localStorage.setItem("username", username); 
         localStorage.setItem("password", user_password);
-        localStorage.setItem("user_id", "5");
+        localStorage.setItem("user_id", response.user);
         this.setState({
           islogged: true
         });
