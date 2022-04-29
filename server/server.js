@@ -29,16 +29,16 @@ app.use(function (req, res, next) {
     referer: req.headers['referer'],
     useragent: req.headers['user-agent']
   };
-  log.insertOne(data, (err, resdb) => {
-    if (err) res.send({
-      status: 'error',
-      debug: resdb
-    });
-    else res.send({
-      status: 'sucess',
-      result: resdb
-    });
-  });
+  // log.insertOne(data, (err, resdb) => {
+  //   if (err) res.send({
+  //     status: 'error',
+  //     debug: resdb
+  //   });
+  //   else res.send({
+  //     status: 'sucess',
+  //     result: resdb
+  //   });
+  // });
 
   next()
 })

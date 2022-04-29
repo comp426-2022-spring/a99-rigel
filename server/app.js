@@ -7,6 +7,7 @@ const app = express();
 // middleware
 app.use(express.static('public'));
 app.use(express.json());
+app.use(bodyParser.json()); 
 app.use(cookieParser());
 
 // view engine

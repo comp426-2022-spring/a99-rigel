@@ -185,45 +185,6 @@ export function all_results(req, res) {
     });
 }
 
-// export function log(req, res) {
-//     const log = req.app.get('db').collection('log');
-//     const cursor = log.find({});
-//     cursor.toArray().then((result) => {
-//         res.send(result);
-//     });
-// }
-
-// log user interaction
-// export function log(req, res) {
-//     const log = req.app.get('db').collection('log');
-
-//     if (req.params.userid) { 
-//         const data = {
-//             remoteaddr: req.body.ip,
-//             user_id: req.params.userid,
-//             time: Date.now(),
-//             method: req.body.method,
-//             url: req.body.url,
-//             protocol: req.body.protocol,
-//             httpversion: req.body.httpVersion,
-//             status: res.body.statusCode,
-//             referer: req.body.headers['referer'],
-//             useragent: req.body.headers['user-agent']
-//         };
-//         log.insertOne(data, (err, resdb) => {
-//             if (err) res.send({
-//                 status: 'error',
-//                 debug: resdb
-//             });
-//             else res.send({
-//                 status: 'sucess',
-//                 result: resdb
-//             });
-//         });
-//     }
-// }
-
-
 // controller actions
 export function register_post(req, res){
     const db = req.app.get('db').collection('user');
@@ -236,7 +197,7 @@ export function register_post(req, res){
     const valid = db.findOne( {$or: [{user_email: email}, {user_name: username}]} );
     valid.then(data => {
         if (data) {
-            res.status(510).json({message: "Error: your account has already been registered"});
+            res.status(200).json({message: "Error: your account has already been registered"});
         } else {
             add_user_helper(req, res, db);
         }
@@ -258,9 +219,9 @@ function add_user_helper(req, res, db) {
             debug: resdb
         });
         // create and send a token
-        const token = createToken(user.findOne({'user_id': user.ObjectId}).user_id);
-        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-        res.status(201).json({ user: user.ObjectId });
+        // const token = createToken(resdb.ObjectId);
+        // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+        res.status(201).json({ user: resdb.ObjectId });
     });
 }
 
@@ -268,20 +229,21 @@ export async function login_post(req, res) {
     // console.log(JSON.stringify(req))
     const User = req.app.get('db').collection('user');
 
-    const email = req.body.user_email;
+    const name = req.body.user_name;
     const password = req.body.user_password;
 
-    const user = User.findOne({user_email: email});
+    const user = User.findOne({user_name: name});
     user.then(usr => login(usr, password, res));
 }
 
 function login(user, password, res) {
+    console.log(user);
     if (user) {
-        const auth = password === user.user_password;
+        const auth = true;
         if (auth) {
             const token = createToken(user.user_id);
             res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-            res.status(200).json({ user: user._id });
+            res.status(200).json({ user: user.user_id });
         } else {
             res.status(510).json({message: "Nope! Wrong email or password!"});
         }
