@@ -195,13 +195,8 @@ export function register_post(req, res){
     const password = params.user_password;
 
     const valid = db.findOne( {$or: [{user_email: email}, {user_name: username}]} );
-    console.log(JSON.stringify(params))
     valid.then(data => {
         if (data) {
-            console.log("here")
-            console.log(data)
-            console.log("hiiii")
-            console.log(valid)
             res.status(200).json({message: "Error: your account has already been registered"});
         } else {
             add_user_helper(req, res, db);
