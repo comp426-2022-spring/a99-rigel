@@ -14,8 +14,8 @@ app.set('port', PORT);
 app.use(cors({}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(function (req, res, next) {
-  const log = req.app.get('db').collection('log');
+// app.use(function (req, res, next) {
+//   const log = req.app.get('db').collection('log');
 
   const data = {
     remoteaddr: req.ip,
@@ -41,8 +41,8 @@ app.use(function (req, res, next) {
     });
   });*/
 
-  next()
-})
+//   next()
+// })
 app.use('/', router);
 
 
