@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as api from './default.js';
 import * as dev from './devapi.js';
+import * as user from './user.js';
 
 const router = Router();
 
@@ -20,15 +21,15 @@ router.post('/add_survey/:userid', api.add_survey);
 router.get('/survey/:surveyid', api.survey);
 
 router.post('/add_result/:surveyid', api.add_result);
-router.get('/all_results', api.all_results);
+router.get('/all_results', dev.all_results);
 // Results for a specific survey
 router.get('/result/:surveyid', api.result);
 
 //router.get('/log', api.log);
 
 
-router.post('/register', api.register_post);
-router.post('/login', api.login_post);
+router.post('/register', user.register_post);
+router.post('/login', user.login_post);
 
 export default router;
 

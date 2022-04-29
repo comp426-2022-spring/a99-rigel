@@ -24,3 +24,12 @@ export function all_surveys(req, res) {
         res.send(result);
     });
 }
+
+// All of the results for all survey
+export function all_results(req, res) {
+    const result = req.app.get('db').collection('result');
+    const cursor = result.find({});
+    cursor.toArray().then((result) => {
+        res.send(result);
+    });
+}
