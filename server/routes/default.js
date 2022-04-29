@@ -185,6 +185,35 @@ export function all_results(req, res) {
     });
 }
 
+// log user interaction
+export function log(req, res) {
+    const log = req.app.get('db').collection('log');
+
+    const data = {
+        remoteaddr: req.body.ip,
+        remoteuser: req.body.user,
+        time: Date.now(),
+        method: req.body.method,
+        url: req.body.url,
+        protocol: req.body.protocol,
+        httpversion: req.body.httpVersion,
+        status: res.body.statusCode,
+        referer: req.body.headers['referer'],
+        useragent: req.body.headers['user-agent']
+    };
+    log.insertOne(data, (err, resdb) => {
+        if (err) res.send({
+            status: 'error',
+            debug: resdb
+        });
+        else res.send({
+            status: 'sucess',
+            result: resdb
+        });
+    });
+}
+
+
 // controller actions
 export function register_post(req, res){
     const db = req.app.get('db').collection('user');
