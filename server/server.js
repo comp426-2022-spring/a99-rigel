@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
     referer: req.headers['referer'],
     useragent: req.headers['user-agent']
   };
+  /*
   log.insertOne(data, (err, resdb) => {
     if (err) res.send({
       status: 'error',
@@ -38,7 +39,7 @@ app.use(function (req, res, next) {
       status: 'sucess',
       result: resdb
     });
-  });
+  });*/
 
   next()
 })
