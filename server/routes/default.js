@@ -192,7 +192,7 @@ export function log(req, res) {
     if (req.params.userid) { 
         const data = {
             remoteaddr: req.body.ip,
-            remoteuser: req.body.user,
+            user_id: req.params.userid,
             time: Date.now(),
             method: req.body.method,
             url: req.body.url,
