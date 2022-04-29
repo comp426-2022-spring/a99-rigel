@@ -188,15 +188,23 @@ export function all_results(req, res) {
 // controller actions
 export function register_post(req, res){
     const db = req.app.get('db').collection('user');
-    const params = req.params;
+    const params = req.body;
 
     const email = params.user_email;
     const username = params.user_name;
     const password = params.user_password;
 
     const valid = db.findOne( {$or: [{user_email: email}, {user_name: username}]} );
+    console.log(JSON.stringify(params))
     valid.then(data => {
         if (data) {
+<<<<<<< HEAD
+=======
+            console.log("here")
+            console.log(data)
+            console.log("hiiii")
+            console.log(valid)
+>>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
             res.status(200).json({message: "Error: your account has already been registered"});
         } else {
             add_user_helper(req, res, db);
@@ -213,25 +221,36 @@ function add_user_helper(req, res, db) {
         user_info: req.body.user_info,
         user_intro: req.body.user_intro,
     };
+    
     db.insertOne(data, (err, resdb) => {
         if (err) res.send({
             status: 'error',
             debug: resdb
         });
+<<<<<<< HEAD
         // create and send a token
         // const token = createToken(resdb.ObjectId);
         // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
         res.status(201).json({ user: resdb.ObjectId });
+=======
+        res.status(201).json({ user: user.user_id });
+>>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
     });
 }
 
 export async function login_post(req, res) {
     // console.log(JSON.stringify(req))
     const User = req.app.get('db').collection('user');
+<<<<<<< HEAD
 
     const name = req.body.user_name;
     const password = req.body.user_password;
 
+=======
+    const name = req.body.user_name;
+    const password = req.body.user_password;
+    
+>>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
     const user = User.findOne({user_name: name});
     user.then(usr => login(usr, password, res));
 }

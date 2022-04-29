@@ -14,9 +14,9 @@ app.set('port', PORT);
 app.use(cors({}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(function (req, res, next) {
-  const log = req.app.get('db').collection('log');
-
+// app.use(function (req, res, next) {
+//   const log = req.app.get('db').collection('log');
+/*
   const data = {
     remoteaddr: req.ip,
     user_id: req.user,
@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
     referer: req.headers['referer'],
     useragent: req.headers['user-agent']
   };
+<<<<<<< HEAD
   // log.insertOne(data, (err, resdb) => {
   //   if (err) res.send({
   //     status: 'error',
@@ -39,9 +40,22 @@ app.use(function (req, res, next) {
   //     result: resdb
   //   });
   // });
+=======
+  /*
+  log.insertOne(data, (err, resdb) => {
+    if (err) res.send({
+      status: 'error',
+      debug: resdb
+    });
+    else res.send({
+      status: 'sucess',
+      result: resdb
+    });
+  });*/
+>>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
 
-  next()
-})
+//   next()
+// })
 app.use('/', router);
 
 
