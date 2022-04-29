@@ -187,37 +187,42 @@ export function all_results(req, res) {
 
 // controller actions
 export function register_post(req, res){
-    const user = req.app.get('db').collection('user');
-    console.log("HIIIII")
-    console.log(req)
-    if (validate_user(req.body, req)) {  
-        const data = {
-            user_name: req.body.user_name,
-            user_email: req.body.user_email,
-            user_password : req.user_password,
-            email_verified: true,
-            user_info: req.body.user_info,
-            user_intro: req.body.user_intro,
-        };
+    const db = req.app.get('db').collection('user');
+    const params = req.params;
 
-        user.insertOne(data, (err, resdb) => {
-            if (err) res.send({
-                status: 'error',
-                debug: resdb
-            });
-            // create and send a token
-            const token = createToken(user.findOne({'user_id': user.ObjectId}).user_id);
-            res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-            res.status(201).json({ user: user.ObjectId });
-            // else res.send({
-            //     status: 'sucess',
-            //     result: resdb
-            // });
+    const email = params.user_email;
+    const username = params.user_name;
+    const password = params.user_password
+
+    const valid = db.findOne( {$or: [{user_email: email}, {user_name: username}]} );
+    valid.then(data => {
+        if (data) {
+            res.status(510).json({message: "Error: your account has already been registered"});
+        } else {
+            add_user_helper(req, res, db);
+        }
+    });
+}
+
+function add_user_helper(req, res, db) {
+    const data = {
+        user_name: req.body.user_name,
+        user_email: req.body.user_email,
+        user_password : req.user_password,
+        email_verified: true,
+        user_info: req.body.user_info,
+        user_intro: req.body.user_intro,
+    };
+    db.insertOne(data, (err, resdb) => {
+        if (err) res.send({
+            status: 'error',
+            debug: resdb
         });
-    }
-    else {
-        res.status(510).json({message: "Error: your account has already been registered"});
-    }
+        // create and send a token
+        const token = createToken(user.findOne({'user_id': user.ObjectId}).user_id);
+        res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+        res.status(201).json({ user: user.ObjectId });
+    });
 }
 
 export async function login_post(req, res) {
@@ -230,26 +235,6 @@ export async function login_post(req, res) {
     const user = User.findOne({user_email: email});
     user.then(usr => login(usr, password, res));
 }
-
-
-function validate_user(params, req) {
-    // TODO: need to implement user validator
-    // const user = req.app.get('db').collection('user');
-
-    // const email = params.user_email;
-    // const username = params.user_name;
-    // const password = params.user_password
-
-    // const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
-    // console.log("Hi again")
-    // console.log(valid)
-    // if (valid == null) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
-    return true;
-} 
 
 function login(user, password, res) {
     if (user) {
