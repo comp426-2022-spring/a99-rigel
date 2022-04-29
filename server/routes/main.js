@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import * as api from './default.js';
+import * as dev from './devapi.js';
 
 const router = Router();
 
-router.get('/', api.index);
-router.get('/hello/:name', api.hello);
-router.get('/all_users', api.all_users);
+router.get('/', dev.index);
+router.get('/hello/:name', dev.hello);
+router.get('/all_users', dev.all_users);
 router.get('/user/:id', api.user);
 router.post('/add_user', api.add_user);
 
-router.get('/all_surveys', api.all_surveys);
+router.get('/all_surveys', dev.all_surveys);
 // Surveys not including users
 router.get('/home/:userid', api.certain_surveys)
 // Surveys for given user

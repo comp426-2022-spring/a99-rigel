@@ -236,7 +236,7 @@ export async function login_post(req, res) {
 function login(user, password, res) {
     console.log(user);
     if (user) {
-        const auth = true;
+        const auth = password === user.user_password;
         if (auth) {
             const token = createToken(user.user_id);
             res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
