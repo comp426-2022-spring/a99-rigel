@@ -185,6 +185,14 @@ export function all_results(req, res) {
     });
 }
 
+// export function log(req, res) {
+//     const log = req.app.get('db').collection('log');
+//     const cursor = log.find({});
+//     cursor.toArray().then((result) => {
+//         res.send(result);
+//     });
+// }
+
 // log user interaction
 // export function log(req, res) {
 //     const log = req.app.get('db').collection('log');

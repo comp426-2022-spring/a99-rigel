@@ -14,33 +14,32 @@ app.set('port', PORT);
 app.use(cors({}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(function log(req, res, next) {
+app.use(function (req, res, next) {
   const log = req.app.get('db').collection('log');
 
-  if (req.params.userid) {
-    const data = {
-      remoteaddr: req.body.ip,
-      user_id: req.params.userid,
-      time: Date.now(),
-      method: req.body.method,
-      url: req.body.url,
-      protocol: req.body.protocol,
-      httpversion: req.body.httpVersion,
-      status: res.body.statusCode,
-      referer: req.body.headers['referer'],
-      useragent: req.body.headers['user-agent']
-    };
-    log.insertOne(data, (err, resdb) => {
-      if (err) res.send({
-        status: 'error',
-        debug: resdb
-      });
-      else res.send({
-        status: 'sucess',
-        result: resdb
-      });
+  const data = {
+    remoteaddr: req.ip,
+    user_id: req.user,
+    time: Date.now(),
+    method: req.method,
+    url: req.url,
+    protocol: req.protocol,
+    httpversion: req.httpVersion,
+    status: res.statusCode,
+    referer: req.headers['referer'],
+    useragent: req.headers['user-agent']
+  };
+  log.insertOne(data, (err, resdb) => {
+    if (err) res.send({
+      status: 'error',
+      debug: resdb
     });
-  }
+    else res.send({
+      status: 'sucess',
+      result: resdb
+    });
+  });
+
   next()
 })
 app.use('/', router);
