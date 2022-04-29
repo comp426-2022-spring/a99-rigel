@@ -192,7 +192,7 @@ export function register_post(req, res){
 
     const email = params.user_email;
     const username = params.user_name;
-    const password = params.user_password
+    const password = params.user_password;
 
     const valid = db.findOne( {$or: [{user_email: email}, {user_name: username}]} );
     valid.then(data => {
