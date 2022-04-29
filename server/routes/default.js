@@ -198,13 +198,10 @@ export function register_post(req, res){
     console.log(JSON.stringify(params))
     valid.then(data => {
         if (data) {
-<<<<<<< HEAD
-=======
             console.log("here")
             console.log(data)
             console.log("hiiii")
             console.log(valid)
->>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
             res.status(200).json({message: "Error: your account has already been registered"});
         } else {
             add_user_helper(req, res, db);
@@ -227,30 +224,16 @@ function add_user_helper(req, res, db) {
             status: 'error',
             debug: resdb
         });
-<<<<<<< HEAD
-        // create and send a token
-        // const token = createToken(resdb.ObjectId);
-        // res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
-        res.status(201).json({ user: resdb.ObjectId });
-=======
         res.status(201).json({ user: user.user_id });
->>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
     });
 }
 
 export async function login_post(req, res) {
     // console.log(JSON.stringify(req))
     const User = req.app.get('db').collection('user');
-<<<<<<< HEAD
-
-    const name = req.body.user_name;
-    const password = req.body.user_password;
-
-=======
     const name = req.body.user_name;
     const password = req.body.user_password;
     
->>>>>>> a7ecbba9d81a262c93999306854971bbf308f074
     const user = User.findOne({user_name: name});
     user.then(usr => login(usr, password, res));
 }
