@@ -37,7 +37,7 @@ class Login extends Component {
         localStorage.setItem("token", "T")
         localStorage.setItem("username", username); 
         localStorage.setItem("password", user_password);
-        localStorage.setItem("user_id", response.user);
+        localStorage.setItem("user_id", response.data.user);
         this.setState({
           islogged: true
         });
