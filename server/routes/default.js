@@ -206,9 +206,13 @@ export function register_post(req, res){
                 debug: resdb
             });
             // create and send a token
-            const token = createToken(user.findOne({'user_id': user.ObjectId}));
+            const token = createToken(user.findOne({'user_id': user.ObjectId}).user_id);
             res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
             res.status(201).json({ user: user.ObjectId });
+            // else res.send({
+            //     status: 'sucess',
+            //     result: resdb
+            // });
         });
     }
     else {
@@ -217,40 +221,53 @@ export function register_post(req, res){
 }
 
 export async function login_post(req, res) {
-    console.log(JSON.stringify(req))
+    // console.log(JSON.stringify(req))
     const User = req.app.get('db').collection('user');
 
-    // create and send a token
-    const token = createToken(User.findOne({'user_id': user.ObjectId}));
-    res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge * 1000});
+    const email = req.body.user_email;
+    const password = req.body.user_password;
 
-    const {username, password} = req.body;
-    const user = await User.findOne({ user_name: username });
-    if (user) {
-        const auth = await bcrypt.compare(password, user.password);
-        if (auth) {
-        res.status(200).json({ user: user.ObjectId})
-        }
-        throw Error('incorrect password');
+    try {
+      const user = await login(User, email, password);
+      const token = createToken(user.user_id);
+      res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).json({ user: user._id });
     }
-    throw Error('incorrect email');
+    catch (err) {
+        res.status(510).json({message: "Nope!"});
+    }
 }
 
 
 function validate_user(params, req) {
     // TODO: need to implement user validator
-    const user = req.app.get('db').collection('user');
+    // const user = req.app.get('db').collection('user');
 
-    const email = params.user_email;
-    const username = params.user_name;
-    const password = params.user_password
+    // const email = params.user_email;
+    // const username = params.user_name;
+    // const password = params.user_password
 
-    const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
-    console.log("Hi again")
-    console.log(valid)
-    if (valid == null) {
-        return true;
-    } else {
-        return false;
-    }
+    // const valid = user.find( {$or: [{user_email: email}, {user_name: username}]} );
+    // console.log("Hi again")
+    // console.log(valid)
+    // if (valid == null) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+    return true;
 } 
+
+function login(User, email, password) {
+    const user = User.findOne({user_email: email});
+    if (user) {
+    //   const auth = await bcrypt.compare(password, user.password);
+    const auth = password.localeCompare(user.user_password);  
+    if (auth) {
+        return user;
+      }
+      throw Error('incorrect password');
+    }
+    throw Error('incorrect email');
+}
+
