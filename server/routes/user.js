@@ -1,3 +1,14 @@
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
+
+// function to creat jwt
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, 'secret', {
+    expiresIn: maxAge
+  })
+}
+
 // controller actions
 export function register_post(req, res){
     const db = req.app.get('db').collection('user');
