@@ -208,7 +208,7 @@ function add_user_helper(req, res, db) {
     const data = {
         user_name: req.body.user_name,
         user_email: req.body.user_email,
-        user_password : req.user_password,
+        user_password : req.body.user_password,
         email_verified: true,
         user_info: req.body.user_info,
         user_intro: req.body.user_intro,
