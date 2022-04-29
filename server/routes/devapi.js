@@ -33,3 +33,12 @@ export function all_results(req, res) {
         res.send(result);
     });
 }
+
+// All of the results for all survey
+export function all_logs(req, res) {
+    const result = req.app.get('db').collection('log');
+    const cursor = result.find({});
+    cursor.toArray().then((result) => {
+        res.send(result);
+    });
+}

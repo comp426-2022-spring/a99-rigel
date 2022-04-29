@@ -25,7 +25,7 @@ router.get('/all_results', dev.all_results);
 // Results for a specific survey
 router.get('/result/:surveyid', api.result);
 
-//router.get('/log', api.log);
+router.get('/log', dev.all_logs);
 
 
 router.post('/register', user.register_post);
