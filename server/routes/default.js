@@ -186,34 +186,34 @@ export function all_results(req, res) {
 }
 
 // log user interaction
-export function log(req, res) {
-    const log = req.app.get('db').collection('log');
+// export function log(req, res) {
+//     const log = req.app.get('db').collection('log');
 
-    if (req.params.userid) { 
-        const data = {
-            remoteaddr: req.body.ip,
-            user_id: req.params.userid,
-            time: Date.now(),
-            method: req.body.method,
-            url: req.body.url,
-            protocol: req.body.protocol,
-            httpversion: req.body.httpVersion,
-            status: res.body.statusCode,
-            referer: req.body.headers['referer'],
-            useragent: req.body.headers['user-agent']
-        };
-        log.insertOne(data, (err, resdb) => {
-            if (err) res.send({
-                status: 'error',
-                debug: resdb
-            });
-            else res.send({
-                status: 'sucess',
-                result: resdb
-            });
-        });
-    }
-}
+//     if (req.params.userid) { 
+//         const data = {
+//             remoteaddr: req.body.ip,
+//             user_id: req.params.userid,
+//             time: Date.now(),
+//             method: req.body.method,
+//             url: req.body.url,
+//             protocol: req.body.protocol,
+//             httpversion: req.body.httpVersion,
+//             status: res.body.statusCode,
+//             referer: req.body.headers['referer'],
+//             useragent: req.body.headers['user-agent']
+//         };
+//         log.insertOne(data, (err, resdb) => {
+//             if (err) res.send({
+//                 status: 'error',
+//                 debug: resdb
+//             });
+//             else res.send({
+//                 status: 'sucess',
+//                 result: resdb
+//             });
+//         });
+//     }
+// }
 
 
 // controller actions
