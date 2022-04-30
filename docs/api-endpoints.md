@@ -2,9 +2,88 @@
 This document defines the API endpoints used to communicate between frontend and backend.
 
 # User
+
+### Delete user
+```
+Endpoint: /user/delete/:id (DELETE)
+Return: { status: 'success' } or error 
+```
+
+### Change user password
+```
+Endpoint: /user/chpwd/:id (POST)
+Form: { old_pwd, new_pwd }
+Return:
+1. id is not an int OR old_pwd is empty OR new_pwd is empty => { status: 'failed', msg: "wrong argument!" }
+2. no document with user_id == id => { msg: "cannot find the corresponding user!" }
+3. old_pwd is not match => { msg: 'Wrong old password! '}
+4. password updated => { status: 'success', msg: 'password updated!' }
+```
+
 ## Register
 
+### /register (POST)
+
+#### Request body
+
+```
+{
+    "user_email": "cde@gmail.com",
+    "user_name": "cde",
+    "user_password": "cde"
+}
+```
+
+#### Request cURL
+
+```
+curl http://localhost:5000/register
+```
+
+#### Response body
+
+```
+{
+    "status": "success",
+    "msg": {
+        "user": "626d4eb8009f1e67e2735155"
+    }
+}
+```
+
 ## Login
+
+### /login (POST)
+
+#### Request body
+
+```
+{
+    "user_name": "cde",
+    "user_password": "cde"
+}
+```
+
+#### Request cURL
+
+```
+curl http://localhost:5000/login
+```
+
+#### Response body
+
+Correct Username/Password:
+```
+{
+    "user": 9
+}
+```
+Wrong Username or Password:
+```
+{{
+    "message": "Nope! Wrong username or password!"
+}
+```
 
 ## Lookup
 

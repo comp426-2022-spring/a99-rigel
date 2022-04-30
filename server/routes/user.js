@@ -58,11 +58,11 @@ function login(user, password, res) {
             if (auth) {
                 res.status(200).json({ user: user.user_id });
             } else {
-                res.status(210).json({message: "Nope! Wrong email or password!"});
+                res.status(210).json({message: "Nope! Wrong username or password!"});
             }
         });
     } else {
-        res.status(210).json({message: "Nope! Wrong email or password!"})
+        res.status(210).json({message: "Nope! Wrong username or password!"})
     }
 }
 
