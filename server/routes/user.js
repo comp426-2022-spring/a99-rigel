@@ -84,7 +84,6 @@ export function change_password(req, res) {
         return ;
     }
     db.findOne({ user_id: user_id }).then(user => {
-        console.log(user);
         if (!user) {
             res.status(400).json({ msg: "cannot find the corresponding user!" })
             return ;
