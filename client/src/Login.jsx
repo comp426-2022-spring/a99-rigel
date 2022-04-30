@@ -42,7 +42,7 @@ class Login extends Component {
         });
       }
       else {
-        alert("Error: Invalid login input")
+        alert("Error: Invalid login input. If you do not have an account please create one.")
       }
     })
     .catch(function (error) {
