@@ -7,11 +7,11 @@ In today's day and age, information is gold. Our full-stack web application prov
 ## Demo
 
 ## Try it Out Locally!
-To run our app on your own device, first make sure you have Node.js and npm installed. Then, clone this repository, and simply run the following script in your terminal, which will install all needed dependencies and start the app:
+To run our app on your own device, first make sure you have Node.js and npm installed. Then, clone this repository, and run the following script in your terminal, which will install all needed dependencies and start the app:
 ```
 npm run startall
 ```
-This app should now be running on your device! It will take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app at http://localhost:3000/!
+The app should now be running on your device! It will take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app at http://localhost:3000/!
 
 Make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
 
