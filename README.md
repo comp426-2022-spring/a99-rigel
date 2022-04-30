@@ -1,6 +1,4 @@
-# a99 Final Project
-
-# Public Health Survey Web Application
+# a99 Final Project - Public Health Survey Web App
 
 ## Summary 
 
