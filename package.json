@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"cd client && npm start\" \"cd server && node server.js\"",
-    "install-all": "concurrently \"npm install\" \"cd client && npm install --save --legacy-peer-deps\" \"cd server && npm install\"",
-    "startall": "concurrently \"npm install\" \"cd client && npm install --save --legacy-peer-deps\" \"cd server && npm install\" \"cd client && npm start\" \"cd server && node server.js\""
+    "install-all": "npm install && cd client && npm install --save --legacy-peer-deps && cd ../server && npm install && cd ../",
+    "startall": "npm install && cd client && npm install --save --legacy-peer-deps && cd ../server && npm install && cd ../ && concurrently \"cd client && npm start\" \"cd server && node server.js\""
   },
   "repository": {
     "type": "git",
