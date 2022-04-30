@@ -48,7 +48,7 @@ class Register extends Component { //Constructor, initialize the fields of this 
           });
         }
         else {
-          alert("Error registering. You're email or username has already been registered")
+          alert("Error registering. Your email or username has already been registered.")
         }
       })
       .catch(function (error) {
