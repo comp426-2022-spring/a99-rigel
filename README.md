@@ -2,7 +2,7 @@
 
 ## Summary 
 
-In today's day and age, information is gold. Our full-stack web application provides a central place for researchers to mine this informational gold in the public health space. Our platform lets users post public health-related surveys, submit responses to these surveys, and also view any responses to surveys they've made. Essentially, it is a one-stop, easy-to-access shop for public health information gathering.
+In today's day and age, information is gold. Our full-stack web application provides a central place for researchers to mine this informational gold in the public health space. Our platform lets users post public health-related surveys, submit responses to these surveys, and also view any responses to surveys they've made. Users can also update their passwords or delete their accounts, and those who know the admin password are able to view the application's logs. Essentially, this project is a one-stop, easy-to-access shop for public health information gathering.
 
 ## Demo
 
