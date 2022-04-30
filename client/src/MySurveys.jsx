@@ -24,7 +24,7 @@ class MySurvey extends Component {
     .then((response) => {
       const surveys = response.data
       const surveyComponents = surveys.map((survey) =>//Surprised this works
-          <li onClick = {() => this.openSurvey(survey.survey_id)} class = "surveyComponent">
+          <li onClick = {() => this.openSurvey(survey.survey_id)} className = "surveyComponent">
               {survey.survey_name}
           </li>, this
       );
@@ -100,8 +100,8 @@ class MySurvey extends Component {
     return (
         <div>
             <br/>
-            <h1 class = "surveyListHeader">My Surveys</h1>
-            <ul class = "surveyList">
+            <h1 className = "surveyListHeader">My Surveys</h1>
+            <ul className = "surveyList">
                 {surveyList}
             </ul>
         </div>
