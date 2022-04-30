@@ -5,6 +5,7 @@ import MySurveys from "./MySurveys"
 import Survey from "./Survey";
 import CreateSurvey from "./CreateSurvey"
 import Profile from "./Profile";
+import Logs from "./Logs";
 import "./styles/Dashboard.css";
 
 class Dashboard extends Component {
@@ -49,6 +50,9 @@ class Dashboard extends Component {
           <li>
             <Link to={`${match.path}/profile`}>My Profile</Link>
           </li>
+          <li>
+            <Link to={`${match.path}/logs`}>View Logs</Link>
+          </li>
           <li className="push-right">
             <button onClick={this.signOut} href="#">
               Sign Out
@@ -66,6 +70,9 @@ class Dashboard extends Component {
               </Route>
               <Route path={`${match.path}/profile`}>
                 <Profile />
+              </Route>
+              <Route path={`${match.path}/logs`}>
+                <Logs />
               </Route>
               <Route exact path={`${match.path}`}>
                 <Survey />
