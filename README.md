@@ -1,6 +1,6 @@
 # a99 Final Project
 
-# Public Health Survey Dashboard
+# Public Health Survey Application
 
 ## Summary 
 
