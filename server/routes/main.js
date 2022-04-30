@@ -9,6 +9,7 @@ const router = Router();
 // user register and login
 router.post('/register', user.register_post);
 router.post('/login', user.login_post);
+router.delete('/user/delete/:id', user.delete_user);
 router.get('/user/:id', api.user);
 
 // Surveys not including users

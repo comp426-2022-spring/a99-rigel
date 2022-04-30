@@ -42,11 +42,11 @@ function add_user_helper(req, res, db, password) {
 }
 
 export async function login_post(req, res) {
-    const User = req.app.get('db').collection('user');
+    const db = req.app.get('db').collection('user');
     const name = req.body.user_name;
     const password = req.body.user_password;
     
-    const user = User.findOne({user_name: name});
+    const user = db.findOne({user_name: name});
     user.then(usr => login(usr, password, res));
 }
 
@@ -62,4 +62,12 @@ function login(user, password, res) {
     } else {
         res.status(210).json({message: "Nope! Wrong email or password!"})
     }
+}
+
+export function delete_user(req, res) {
+    const db = req.app.get('db').collection('user');
+    db.deleteOne({ user_id: parseInt(req.params.id) }, (err, obj) => {
+        if (err) res.send(err);
+        res.send({ status: 'success', obj: obj })
+    });
 }
