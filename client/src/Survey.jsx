@@ -53,6 +53,12 @@ class Survey extends Component {
     localStorage.removeItem("taking_survey")
     localStorage.removeItem("curr_survey_id")
   }
+  
+  close = () => {
+    localStorage.removeItem("taking_survey")
+    localStorage.removeItem("curr_survey_id")
+    window.location.reload(false);
+  }
 
   openSurvey = survey_id => {
     //Displays an opened survey
@@ -114,7 +120,10 @@ class Survey extends Component {
           {survey_questions_render}
           <button onClick = {this.submitSurvey} className = "center">
             Submit
-          </button>
+          </button><br/>
+          <button onClick = {this.close} className = "center">
+            Close
+          </button><br/>
         </div>
       )
     }
@@ -125,6 +134,7 @@ class Survey extends Component {
             <ul className = "surveyList">
                 {surveyList}
             </ul>
+            <br/>
         </div>
     )
   }

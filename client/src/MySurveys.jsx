@@ -93,7 +93,7 @@ class MySurvey extends Component {
           {this.state.survey_data}
           <button onClick = {this.closeSurvey} className = "center">
             Close
-          </button>
+          </button><br/>
         </div>
       )
     }
@@ -104,6 +104,7 @@ class MySurvey extends Component {
             <ul className = "surveyList">
                 {surveyList}
             </ul>
+            <br/>
         </div>
     )
   }

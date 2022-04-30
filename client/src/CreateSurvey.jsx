@@ -107,7 +107,7 @@ class CreateSurvey extends Component {
           </div><br/>
           <button onClick = {this.submit} className = "center">
               Submit
-            </button>
+          </button><br/>
         </div>
       )
   }
