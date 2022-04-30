@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Question from "./Question"
@@ -49,10 +50,27 @@ class Profile extends Component {
     else if (newPass1 === "") {
         alert("Error: new password cannot be empty")
     }
+    else if (oldPass === newPass1) {
+        alert("Error: new password cannot be same as old password")
+    }
     else {
       //Here we would submit a post request to server with the new password
-      this.close()
-      alert("Password changed")
+      axios.post("http://localhost:5000/user/chpwd/"+localStorage.getItem("user_id"), {
+        old_pwd: oldPass,
+        new_pwd: newPass1
+      })
+      .then((response) => {
+        if (response.data.status === "success") {
+          this.close()
+          alert("Password changed")
+        }
+        else {
+          alert("Error:" + response.data.message)
+        }
+      })
+      .catch(function (error) {
+        alert("Error with HTTP request");
+      });
     }
   }
 
@@ -63,16 +81,28 @@ class Profile extends Component {
   }
 
   deleteAccount = () => { //Actually deletes the account, ultimately redirects you to login page
-    //Axios post to delete account
-    localStorage.removeItem("token"); //Remove local storage items to log out
-    localStorage.removeItem("username");
-    localStorage.removeItem("password")
-    localStorage.removeItem("taking_survey")
-    localStorage.removeItem("curr_survey_id")
-    localStorage.removeItem("viewing_survey")
-    this.setState({
-      account_deleted: true
+    axios.delete("http://localhost:5000/user/delete/"+localStorage.getItem("user_id"))
+    .then((response) => {
+      if (response.data.status === "success") {
+        alert("Account deleted!")
+        localStorage.removeItem("token"); //Remove local storage items to log out
+        localStorage.removeItem("username");
+        localStorage.removeItem("password")
+        localStorage.removeItem("taking_survey")
+        localStorage.removeItem("curr_survey_id")
+        localStorage.removeItem("viewing_survey")
+        localStorage.removeItem("user_id")
+        this.setState({
+          account_deleted: true
+        })
+      }
+      else {
+        alert("Error with delete request")
+      }
     })
+    .catch(function (error) {
+      alert("Error with HTTP request");
+    });
   }
 
   render() { //Render component
@@ -93,7 +123,6 @@ class Profile extends Component {
         return (
             <div className="container">
                 <h1 className = "surveyListHeader">User: {this.state.username}</h1><br/>
-                <p>Hint: the default username is user123 and the default password is abcd123</p>
                 <Question question = "Enter old password" index = {0} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password" index = {1} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password again" index = {2} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
