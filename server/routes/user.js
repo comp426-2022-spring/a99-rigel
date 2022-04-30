@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 
+const saltRound = 10;
+
 // controller actions
 export function register_post(req, res){
     const db = req.app.get('db').collection('user');
@@ -14,7 +16,7 @@ export function register_post(req, res){
         if (data) {
             res.status(210).json({message: "Error: your account has already been registered"});
         } else {
-            bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.genSalt(saltRound, function(err, salt) {
                 bcrypt.hash(password, salt, function(err, hash) {
                     add_user_helper(req, res, db, hash);
                 });
@@ -68,6 +70,38 @@ export function delete_user(req, res) {
     const db = req.app.get('db').collection('user');
     db.deleteOne({ user_id: parseInt(req.params.id) }, (err, obj) => {
         if (err) res.send(err);
-        res.send({ status: 'success', obj: obj })
+        else res.send({ status: 'success', obj: obj })
     });
+}
+
+export function change_password(req, res) {
+    const db = req.app.get('db').collection('user');
+    const user_id = parseInt(req.params.id);
+    const old_pwd = req.body.old_pwd;
+    const new_pwd = req.body.new_pwd;
+    if (!user_id || !old_pwd || !new_pwd) {
+        res.status(422).json({ status: 'failed', msg: "wrong argument!" });
+        return ;
+    }
+    db.findOne({ user_id: user_id }).then(user => {
+        console.log(user);
+        if (!user) {
+            res.status(400).json({ msg: "cannot find the corresponding user!" })
+            return ;
+        }
+        bcrypt.compare(old_pwd, user.user_password, (err, same) => {
+            if (same) {
+                bcrypt.hash(new_pwd, saltRound, (err, hash) => {
+                    db.updateOne({ user_id: user_id }, { $set: { user_password: hash }}, (err, data) => {
+                        if (err) res.status(500).json({ status: 'failed', msg: err });
+                        else res.status(200).json({ status: 'success', msg: 'password updated!' });
+                    })
+                });
+            } else {
+                res.status(400).json({ msg: 'Wrong old password! '});
+                return ;
+            }
+        });
+    });  
+
 }
