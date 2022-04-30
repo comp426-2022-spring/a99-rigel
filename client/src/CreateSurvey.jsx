@@ -97,15 +97,17 @@ class CreateSurvey extends Component {
           <br/>
           <h1 className = "surveyListHeader"> Create New Survey</h1>
           {questions}
-          <button onClick = {this.addQuestion} className = "center">
-            Add question
-          </button>
-          <button onClick = {this.removeQuestion} className = "center">
-            Remove question
-          </button>
+          <div id = "createSurveyDiv">
+            <button onClick = {this.addQuestion} className = "createButton">
+              Add question
+            </button>
+            <button onClick = {this.removeQuestion} className = "createButton">
+              Remove question
+            </button>
+          </div><br/>
           <button onClick = {this.submit} className = "center">
-            Submit
-          </button>
+              Submit
+            </button>
         </div>
       )
   }

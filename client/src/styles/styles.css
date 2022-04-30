@@ -77,3 +77,14 @@ h2 {
 .surveyListHeader {
   text-align: center;
 }
+
+.createButton {
+  margin: 3px;
+  box-sizing: content-box;
+  min-width: 170px;
+}
+
+#createSurveyDiv {
+  display: block;
+  text-align: center;  
+}

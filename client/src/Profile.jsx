@@ -113,7 +113,7 @@ class Profile extends Component {
       return (
         <div className="container">
             <h1 className = "surveyListHeader">User: {this.state.username}</h1><br/>
-            <p>Profile deletion is not reversible. Are you sure you wish to delete?</p>
+            <p>Profile deletion is not reversible. Are you sure you wish to delete your profile?</p>
             <button className = "center" onClick = {this.deleteAccount}>Yes</button> <br/>
             <button className = "center" onClick = {this.close}>No, take me back</button>
         </div>
@@ -123,6 +123,7 @@ class Profile extends Component {
         return (
             <div className="container">
                 <h1 className = "surveyListHeader">User: {this.state.username}</h1><br/>
+                <p>Change password</p>
                 <Question question = "Enter old password" index = {0} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password" index = {1} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
                 <Question question = "Enter new password again" index = {2} handleChange = {(new_answer, index) => this.handleChange(new_answer, index)} />
