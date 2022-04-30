@@ -1,7 +1,7 @@
 {
   "name": "a99-rigel",
   "version": "1.0.0",
-  "description": "For our final project, our team created a full-stack public health survey application",
+  "description": "A public health survey web application",
   "scripts": {
     "test": "echo To test out the app, please run 'npm run startall' (or 'npm start' if all dependencies are already installed) && exit 0",
     "start": "concurrently \"cd client && npm start\" \"cd server && node server.js\"",
