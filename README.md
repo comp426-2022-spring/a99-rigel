@@ -4,7 +4,19 @@
 
 In today's day and age, information is gold. Our full-stack web application provides a central place for researchers to mine this informational gold in the public health space. Our platform lets users post public health-related surveys, submit responses to these surveys, and also view any responses to surveys they've made. Users can also update their passwords or delete their accounts, and those who know the admin password are able to view the application's logs. Essentially, this project is a one-stop, easy-to-access shop for public health information gathering.
 
+## Installation 
+
+We have provided a couple of scripts to help install and start the website.
+
+1. ```npm startall``` will install all of the dependencies for the project and start up the database and server. 
+2. ```npm install-all``` will install all of the dependencies for the project.
+3. ``` npm start ``` will start up the database and server.
+
+Essentially, if you run ```npm startall``` it should do everything for you to see the website. Hope you enjoy1!
+
 ## Demo
+
+To watch a video of our demo, [click here](https://youtu.be/P83dDb3DfiU).
 
 ## Try it Out Locally!
 To run our app on your own device, first make sure you have Node.js and npm installed. Then, clone this repository, and run the following script in your terminal, which will install all needed dependencies and start the app:
