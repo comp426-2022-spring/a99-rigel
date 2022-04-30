@@ -12,7 +12,8 @@ export function all_users(req, res) {
     const user = req.app.get('db').collection('user');
     const cursor = user.find({});
     cursor.toArray().then((result) => {
-        res.send(result);
+        res.header("Content-Type",'application/json');
+        res.send(JSON.stringify(result, null, 4));
     });
 }
 
@@ -21,7 +22,8 @@ export function all_surveys(req, res) {
     const survey = req.app.get('db').collection('survey');
     const cursor = survey.find({});
     cursor.toArray().then((result) => {
-        res.send(result);
+        res.header("Content-Type",'application/json');
+        res.send(JSON.stringify(result, null, 4));
     });
 }
 
@@ -30,7 +32,8 @@ export function all_results(req, res) {
     const result = req.app.get('db').collection('result');
     const cursor = result.find({});
     cursor.toArray().then((result) => {
-        res.send(result);
+        res.header("Content-Type",'application/json');
+        res.send(JSON.stringify(result, null, 4));
     });
 }
 
@@ -39,6 +42,7 @@ export function all_logs(req, res) {
     const result = req.app.get('db').collection('log');
     const cursor = result.find({});
     cursor.toArray().then((result) => {
-        res.send(result);
+        res.header("Content-Type",'application/json');
+        res.send(JSON.stringify(result, null, 4));
     });
 }
