@@ -66,7 +66,6 @@ class CreateSurvey extends Component {
   }
 
   submit = event => { //Submit the survey, combine the survey data to a single array
-    alert(JSON.stringify(this.state.responses))
     let survey_questions = []
     for (let i = 1; i < this.state.responses.length; i++) {
       survey_questions.push({type: "FreeInput", question: this.state.responses[i]})
