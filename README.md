@@ -13,10 +13,10 @@ To run our app on your own computer, first make sure you have Node.js and npm in
 ```
 npm run startall
 ```
-This app should now be running on your device! It may take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app! 
-<br>
+This app should now be running on your device! It will take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app! 
+<br><br>
 
-If that does not happen, try going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
+If that does not work, try going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
 
 Since there are three package.json files in our project, we also have a script for installing all necessary dependencies in all three package.json files. Note that you do not have to run this if you've already run "npm run startall":
 ```
