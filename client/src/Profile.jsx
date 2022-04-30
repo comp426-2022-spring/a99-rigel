@@ -4,8 +4,8 @@ import { Redirect } from "react-router-dom";
 import Question from "./Question"
 
 class Profile extends Component {
-  constructor(props) { //Constructor, initialize the fields of each question (the question and answer)
-    super(props);      //The props contains 3 inputs: question, index, and handleChange
+  constructor(props) { //Constructor
+    super(props);
     this.state = {
       username: localStorage.getItem("username"),
       password: localStorage.getItem("password"),
@@ -54,7 +54,6 @@ class Profile extends Component {
         alert("Error: new password cannot be same as old password")
     }
     else {
-      //Here we would submit a post request to server with the new password
       axios.post("http://localhost:5000/user/chpwd/"+localStorage.getItem("user_id"), {
         old_pwd: oldPass,
         new_pwd: newPass1

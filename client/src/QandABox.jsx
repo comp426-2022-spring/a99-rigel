@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 class QandABox extends Component {
-  constructor(props) { //Constructor, initialize the fields of each question (the question and answer)
-    super(props);      //The props contains 3 inputs: question, index, and handleChange
+  constructor(props) { //Constructor
+    super(props);   
     this.state = {
       question: this.props.question,
       answers: this.props.answers

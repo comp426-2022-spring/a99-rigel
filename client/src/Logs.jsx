@@ -3,17 +3,17 @@ import Question from "./Question";
 import axios from 'axios';
 
 class Logs extends Component {
-  constructor(props) { //Constructor, initialize the fields of each question (the question and answer)
-    super(props);      //The props contains 3 inputs: question, index, and handleChange
-    this.state = {
+  constructor(props) { //Constructor
+    super(props);
+    this.state = { //If admin_privilege is true, the logs are displayed. 
       admin_privilege: false,
       admin_password: "",
       logs: []
     };
   }
 
-  handleAnswerChange = (new_answer, index) => {
-    this.setState({
+  handleAnswerChange = (new_answer, index) => { //Checks if the user has entered the correct admin password.
+    this.setState({                             //If that is the case, makes an API call to get log data and displays it
         admin_password: new_answer
     })
   }
