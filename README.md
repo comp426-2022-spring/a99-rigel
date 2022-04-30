@@ -10,13 +10,12 @@ We created a platform that allows researchers to post public health related surv
 
 ## Try it Out!
 To run our app on your own computer, first make sure you have Node.js and npm installed. Then, clone this repository, and simply run the following script in your terminal:
-
 ```
 npm run startall
 ```
 This app should now be running on your device! It may take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app! 
 
-If that does not happen, try going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall".
+If that does not happen, try going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall", or else the script will not work!
 
 ## Tech Stack
 
