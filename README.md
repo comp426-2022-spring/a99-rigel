@@ -35,7 +35,7 @@ Here are the [team roles](https://github.com/comp426-2022-spring/a99-rigel/blob/
 
 ## Project Planning
 
-We used GroupMe to communicate in real-time with team members. In order to scope and plan our project, we utilized the projects feature within github. Here we were created "to-d," "in progress," and "done" cards. We also met many times over zoom, and recorded notes of those meetings in the projects tab. To take a look at our project planning, [click here](https://github.com/comp426-2022-spring/a99-rigel/projects/1)
+We used GroupMe to communicate in real-time with team members. In order to scope and plan our project, we utilized the projects feature within github. Here we were created "to-do," "in progress," and "done" cards. We also met many times over zoom, and recorded notes of those meetings in the projects tab. To take a look at our project planning, [click here](https://github.com/comp426-2022-spring/a99-rigel/projects/1)
 
 ## Dependencies List
     1. Concurrently
