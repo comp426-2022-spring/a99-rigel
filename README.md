@@ -4,37 +4,20 @@
 
 In today's day and age, information is gold. Our full-stack web application provides a central place for researchers to mine this informational gold in the public health space. Our platform lets users post public health-related surveys, submit responses to these surveys, and also view any responses to surveys they've made. Users can also update their passwords or delete their accounts, and those who know the admin password are able to view the application's logs. Essentially, this project is a one-stop, easy-to-access shop for public health information gathering.
 
-## Installation 
+## Installation and Use
 
-We have provided a couple of scripts to help install and start the website.
+We have provided a couple of scripts to help install and start the web app locally on your device.
 
-1. ```npm startall``` will install all of the dependencies for the project and start up the database and server. 
-2. ```npm install-all``` will install all of the dependencies for the project.
-3. ``` npm start ``` will start up the database and server.
+1. ```npm run startall``` will install all of the dependencies for the project and start up the database and server. 
+2. ```npm run install-all``` will install all of the dependencies for the project.
+3. ``` npm start ``` will start up the database and server (will not work if dependencies aren't installed).
 
-Essentially, if you run ```npm startall``` it should do everything for you to see the website. Hope you enjoy1!
+Essentially, if you clone this repository and run ```npm run startall``` from the project's root directory, the app should be opened. Hope you enjoy!
 
 ## Demo
 
 To watch a video of our demo, [click here](https://youtu.be/P83dDb3DfiU).
 
-## Try it Out Locally!
-To run our app on your own device, first make sure you have Node.js and npm installed. Then, clone this repository, and run the following script in your terminal, which will install all needed dependencies and start the app:
-```
-npm run startall
-```
-The app should now be running on your device! It will take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app at http://localhost:3000/!
-
-Make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
-
-If you want to install all necessary dependencies without also starting the app, run:
-```
-npm run install-all
-```
-After all dependencies have been installed (if you've run "npm run install-all" or "npm run startall" at least once), you can start the app locally by simply running:
-```
-npm start
-```
 ## Tech Stack
 
 To take a look at our Tech Stack, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/tech-stack.md).
