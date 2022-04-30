@@ -12,7 +12,7 @@ export function register_post(req, res){
     const valid = db.findOne( {$or: [{user_email: email}, {user_name: username}]} );
     valid.then(data => {
         if (data) {
-            res.status(200).json({message: "Error: your account has already been registered"});
+            res.status(210).json({message: "Error: your account has already been registered"});
         } else {
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(password, salt, function(err, hash) {
@@ -37,7 +37,7 @@ function add_user_helper(req, res, db, password) {
             status: 'error',
             debug: resdb
         });
-        res.status(201).json({ status: 'success', msg: { user: resdb.insertedId }});
+        res.status(200).json({ status: 'success', msg: { user: resdb.insertedId }});
     });
 }
 
@@ -56,10 +56,10 @@ function login(user, password, res) {
             if (auth) {
                 res.status(200).json({ user: user.user_id });
             } else {
-                res.status(510).json({message: "Nope! Wrong email or password!"});
+                res.status(210).json({message: "Nope! Wrong email or password!"});
             }
         });
     } else {
-        res.status(510).json({message: "Nope! Wrong email or password!"})
+        res.status(210).json({message: "Nope! Wrong email or password!"})
     }
 }

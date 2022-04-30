@@ -32,7 +32,6 @@ class Login extends Component {
       user_password: user_password
     })
     .then((response) => {
-      alert(JSON.stringify(response))
       if (response.status == 200) {//We store info about the current user locally in browser
         localStorage.setItem("token", "T")
         localStorage.setItem("username", username); 
@@ -43,12 +42,10 @@ class Login extends Component {
         });
       }
       else {
-        alert(JSON.stringify(response))
-        alert("Error: Invalid input")
+        alert("Error: Invalid login input")
       }
     })
     .catch(function (error) {
-      alert(JSON.stringify(error))
       alert("Error with HTTP request");
     });
     event.preventDefault();

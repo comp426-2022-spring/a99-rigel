@@ -42,20 +42,17 @@ class Register extends Component { //Constructor, initialize the fields of this 
         user_password: password
       })
       .then((response) => {
-        alert("Request went thru")
-        alert(JSON.stringify(response))
-        if (response.status == 201) {
+        if (response.status == 200) {
           this.setState({
             isRegistered: true
           });
         }
         else {
-          alert("Error registering")
+          alert("Error registering. You're email or username has already been registered")
         }
       })
       .catch(function (error) {
         alert("Error with registration HTTP request");
-        alert(JSON.stringify(error))
       });
     }
     else {
