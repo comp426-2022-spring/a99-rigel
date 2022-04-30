@@ -17,6 +17,10 @@ This app should now be running on your device! It will take a while to load init
 
 If that does not work, try manually going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
 
+If you want to install all necessary dependencies without also starting the app, run:
+```
+npm run install-all
+```
 After all dependencies have been installed (if you've run "npm run install-all" or "npm run startall" at least once), you can start the app locally by simply running:
 ```
 npm start
