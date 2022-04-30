@@ -56,36 +56,37 @@ class Login extends Component {
       return <Redirect to="/" />;
     }
     return (
-    <div>
-      <br/>
-      <div className="container">
-        <form onSubmit={this.login} className="form-signin">
-          <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <div className="row">
-            <div className="col">
-              <input
-                type="text"
-                name="user_id"
-                onChange={this.handleFormChange}
-                placeholder="Enter Username"
-              />
-              <input
-                type="password"
-                name="user_password"
-                onChange={this.handleFormChange}
-                placeholder="Enter Password"
-              />
-              <input type="submit" value="Login" />
-              <Link to="/register" >
-              <button>
-                Register Here if You Don't Have an Account!
-              </button>
-              </Link>
+      <div>
+        <br/>
+        <h1 className = "surveyListHeader">Public Health Survey Site</h1>
+        <div className="container">
+          <form onSubmit={this.login} className="form-signin">
+            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <div className="row">
+              <div className="col">
+                <input
+                  type="text"
+                  name="user_id"
+                  onChange={this.handleFormChange}
+                  placeholder="Enter Username"
+                />
+                <input
+                  type="password"
+                  name="user_password"
+                  onChange={this.handleFormChange}
+                  placeholder="Enter Password"
+                />
+                <input type="submit" value="Login" />
+                <Link to="/register" >
+                <button>
+                  Register Here if You Don't Have an Account!
+                </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
     );
   }
 }

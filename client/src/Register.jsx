@@ -66,59 +66,59 @@ class Register extends Component { //Constructor, initialize the fields of this 
       return <Redirect to="/" />;
     }
     return (
-      <div>
-      <br/>
-      <div className="container">
-        <form onSubmit={this.register} className="form-register">
-          <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
-          <div className="row">
-            <div className="col">
-              <input
-                type="text"
-                name="username"
-                onChange={this.handleFormChange}
-                placeholder="Enter New Username"
-              />
-              <input
-                type="text"
-                name="email"
-                onChange={this.handleFormChange}
-                placeholder="Enter Your Email"
-              />
-              <input
-                type="text"
-                name="password"
-                onChange={this.handleFormChange}
-                placeholder="Enter New Password"
-              />
-              <input
-                type="text"
-                name="password_2"
-                onChange={this.handleFormChange}
-                placeholder="Enter Password Again"
-              />
-              <input
-                type="text"
-                name="intro"
-                onChange={this.handleFormChange}
-                placeholder="Introduce Yourself! (Optional)"
-              />
-              <input
-                type="text"
-                name="info"
-                onChange={this.handleFormChange}
-                placeholder="Any other Information you'd like to share? (Optional)"
-              />
-              <input type="submit" value="Register" />
+      <div><br/>
+        <h1 className = "surveyListHeader">Public Health Survey Site</h1>
+        <div className="container">
+          <form onSubmit={this.register} className="form-register">
+            <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
+            <div className="row">
+              <div className="col">
+                <input
+                  type="text"
+                  name="username"
+                  onChange={this.handleFormChange}
+                  placeholder="Enter New Username"
+                />
+                <input
+                  type="text"
+                  name="email"
+                  onChange={this.handleFormChange}
+                  placeholder="Enter Your Email"
+                />
+                <input
+                  type="text"
+                  name="password"
+                  onChange={this.handleFormChange}
+                  placeholder="Enter New Password"
+                />
+                <input
+                  type="text"
+                  name="password_2"
+                  onChange={this.handleFormChange}
+                  placeholder="Enter Password Again"
+                />
+                <input
+                  type="text"
+                  name="intro"
+                  onChange={this.handleFormChange}
+                  placeholder="Introduce Yourself! (Optional)"
+                />
+                <input
+                  type="text"
+                  name="info"
+                  onChange={this.handleFormChange}
+                  placeholder="Any other Information you'd like to share? (Optional)"
+                />
+                <input type="submit" value="Register" />
+              </div>
             </div>
-          </div>
-        </form><br/>
-        <Link to="/login" >
-          <button className = "center">
-            Back to Login
-          </button>
-        </Link>
-      </div>
+          </form><br/>
+          <Link to="/login" >
+            <button className = "center">
+              Back to Login
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
