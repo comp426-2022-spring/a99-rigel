@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import axios from 'axios';
 import Question from "./Question"
 
@@ -111,7 +111,6 @@ class Survey extends Component {
   render() { //Render component
     const surveyList = this.state.surveyComponents;
     const survey_questions_render = this.state.survey_questions_render;
-    const { match } = this.props;
     if (localStorage.getItem("taking_survey") === "T") {
       return (
         <div>

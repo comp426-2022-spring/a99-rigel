@@ -42,7 +42,7 @@ class Register extends Component { //Constructor, initialize the fields of this 
         user_password: password
       })
       .then((response) => {
-        if (response.status == 200) {
+        if (response.status === 200) {
           alert("Thank you for registering!")
           this.setState({
             isRegistered: true

@@ -32,7 +32,7 @@ class Login extends Component {
       user_password: user_password
     })
     .then((response) => {
-      if (response.status == 200) {//We store info about the current user locally in browser
+      if (response.status === 200) {//We store info about the current user locally in browser
         localStorage.setItem("token", "T")
         localStorage.setItem("username", username); 
         localStorage.setItem("password", user_password);

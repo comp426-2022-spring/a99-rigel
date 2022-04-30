@@ -41,10 +41,10 @@ class Profile extends Component {
     const oldPass = this.state.change_pass_responses[0]
     const newPass1 = this.state.change_pass_responses[1]
     const newPass2 = this.state.change_pass_responses[2]
-    if (oldPass != localStorage.getItem("password")) {
+    if (oldPass !== localStorage.getItem("password")) {
         alert("Error: the inputted current password is incorrect")
     }
-    else if (newPass1 != newPass2) {
+    else if (newPass1 !== newPass2) {
         alert("Error: new passwords do not match")
     }
     else if (newPass1 === "") {

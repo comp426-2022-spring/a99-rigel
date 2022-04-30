@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import QandABox from "./QandABox"
 import axios from 'axios';
 

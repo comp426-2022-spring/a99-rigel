@@ -22,7 +22,7 @@ class CreateSurvey extends Component {
     this.setState({
       responses: new_responses
     })
-    if (index == 0) { //Special case if the first question is changed--this question is the title
+    if (index === 0) { //Special case if the first question is changed--this question is the title
       this.setState({
         title: new_answer
       })
