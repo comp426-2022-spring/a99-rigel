@@ -1,11 +1,11 @@
 # Team Roles
 
-Rishab: API lead and project structure
+Rishab (rkjain02): API lead and project structure
 
-Max: Backend Lead
+Max (hmumixaM): Back-end Lead
 
-Peter: Frontend Lead
+Peter (pyao2212): Front-end Lead
 
-James: Authentication Lead
+James (hetianyuanjames): Authentication Lead
 
-There was overlap and collaboration between all roles. Each person contributed to github and documentation.
+There was overlap and collaboration between all roles. Each person contributed to the github and documentation.

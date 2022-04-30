@@ -4,7 +4,7 @@
 
 ## Summary 
 
-We created a platform that allows researchers to post public health related surveys, let users submit their responses to these surveys, and then let the researchers see their response. In todays day in age, information is gold. This dashboard provides a central place for researchers to conduct relevant research in the public health space. The researcher can create new surveys, see existing research surveys, and see the results to their own survey. Essentially, it is a one-stop shop for public health surveys.
+In today's day in age, information is gold. This full-stack web application provides a central place for researchers to mine this informational gold in public health space. Our platform lets users post public health related surveys, submit responses to these surveys, and also view any responses to surveys they've made. Essentially, it is a one-stop, easy-to-access shop for public health information gathering.
 
 ## Demo
 
@@ -31,11 +31,11 @@ To take a look at our Database Schema documentation, [click here](https://github
 
 ## Team Roles
 
-Here our the [team roles](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/team-roles.md).
+Here are the [team roles](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/team-roles.md).
 
 ## Project Planning
 
-We used groupme to communicate in real time between team members. In order to scope and plan our project we utilized the projects feature within github. Here we were able to create to-dos, in progress, done cards. We also met over zoom and have meeting notes in the projects tab. To take a look at our project planning, [click here](https://github.com/comp426-2022-spring/a99-rigel/projects/1)
+We used GroupMe to communicate in real-time with team members. In order to scope and plan our project, we utilized the projects feature within github. Here we were created "to-d," "in progress," and "done" cards. We also met many times over zoom, and recorded notes of those meetings in the projects tab. To take a look at our project planning, [click here](https://github.com/comp426-2022-spring/a99-rigel/projects/1)
 
 ## Dependencies List
     1. Concurrently

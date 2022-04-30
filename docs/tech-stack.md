@@ -1,15 +1,15 @@
 # Tech Stack
 
-Our web app uses React for the frontend and Mongo DB for the backend.
+Our web app uses React.js for the front-end and Mongo DB for the database.
 
-## Backend
+## Back-end
 
-The backend connection to the Mongo DB database is in the ```server``` directory specifically the ```db.js``` file. ```server.js``` does all the heavy lifting to combine the routes created, start the database, and launch the local server.
+The back-end connection to the Mongo DB database is in the ```server``` directory: specifically,  ```server/db.js```. ```server/server.js``` does the heavy lifting to combine the routes created, start the database, and launch the local server.
 
 ## API Endpoints
 
-The actual endpoints are in the ```route``` directory under the server directory. ```default.js``` has all the function for the routes. ```main.js``` creates the actual endpoints from the functions in default. ```authRoutes.js``` handles authentication routes.
+Code for the endpoints is in ```server/routes```. ```server/routes/default.js```, ```server/routes/user.js``` and ```server/routes/devapi.js``` store the functions which handle each endpoint. ```server/routes/main.js``` defines the actual endpoints for those functions.
 
-## Frontend
+## Front-end
 
-Frontend is in the ```client``` directory. ```src``` has most of the components and logic of the frotend.
+Front-end code is in the ```client``` directory. ```client/src``` stores the React components which make up most of the front-end, with ```client/src/styles``` handling the css styling of those components. The entry point of the front-end is the index.html file in ```client/public```. 
