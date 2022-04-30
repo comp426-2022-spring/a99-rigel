@@ -11,6 +11,7 @@ class Survey extends Component {
       survey_questions: [], //A list of strings for all the survey questions
       survey_questions_render: [], //The jsx for a a list of questions in a single survey
       survey_answers: [], //A list of strings for the survey answers
+      survey_name: "" //Name of survey being taken
     }
     this.remove_tokens = this.remove_tokens.bind(this);
   }
@@ -77,7 +78,8 @@ class Survey extends Component {
       this.setState({ //Initializing state variables for survey-taking mode
         survey_questions_render: questions,
         survey_questions: question_strings,
-        survey_answers: new Array(survey_data.length).fill("")
+        survey_answers: new Array(survey_data.length).fill(""),
+        survey_name: response.data.survey_name
       })
     })
     .catch(function (error) {
@@ -115,7 +117,7 @@ class Survey extends Component {
       return (
         <div>
           <br/>
-          <p>You are doing survey {localStorage.getItem("curr_survey_id")}</p>
+          <p>{this.state.survey_name}</p>
           {survey_questions_render}
           <button onClick = {this.submitSurvey} className = "center">
             Submit
