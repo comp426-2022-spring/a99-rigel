@@ -8,8 +8,8 @@ In today's day and age, information is gold. Our full-stack web application prov
 
 ## Demo
 
-## Try it Out!
-To run our app on your own computer, first make sure you have Node.js and npm installed. Then, clone this repository, and simply run the following script in your terminal, which will install all needed dependencies and start the app:
+## Try it Out Locally!
+To run our app on your own device, first make sure you have Node.js and npm installed. Then, clone this repository, and simply run the following script in your terminal, which will install all needed dependencies and start the app:
 ```
 npm run startall
 ```
@@ -17,14 +17,7 @@ This app should now be running on your device! It will take a while to load init
 
 If that does not work, try manually going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
 
-## Other Scripts
-Besides "npm run startall," our project has two other noteworthy scripts.
-
-Since there are three package.json files in our project, we have a script for installing all dependencies in all three package.json files. Note that you do not have to run this if you've already run "npm run startall":
-```
-npm run install-all
-```
-After all dependencies have been installed (if you've run "npm run install-all" or "npm run startall" at least once), you can start the app by simply running:
+After all dependencies have been installed (if you've run "npm run install-all" or "npm run startall" at least once), you can start the app locally by simply running:
 ```
 npm start
 ```
@@ -48,13 +41,22 @@ Here are the [team roles](https://github.com/comp426-2022-spring/a99-rigel/blob/
 
 We used GroupMe to communicate in real-time with team members. In order to scope and plan our project, we utilized the projects feature within github. Here we were created "to-do," "in progress," and "done" cards. We also met many times over zoom, and recorded notes of those meetings in the projects tab. To take a look at our project planning, [click here](https://github.com/comp426-2022-spring/a99-rigel/projects/1)
 
-## Dependencies List
-    1. Concurrently
-    2. Bcrypt
-    3. Cookie-parser
-    4. Cors
-    5. Express
-    6. MongoDb
-    7. Bootstrap
-    8. React
-    9. Axios
+## Dependencies
+    1. "concurrently": "^7.1.0"
+    2. "@testing-library/jest-dom": "^5.16.4"
+    3. "@testing-library/react": "^12.1.4"
+    4. "@testing-library/user-event": "^13.5.0"
+    5. "bootstrap": "^4.1.1"
+    6. "react": "^18.0.0"
+    7. "react-dom": "^18.0.0"
+    8. "react-router": "^5.2.0"
+    9. "react-router-dom": "^5.2.0"
+    10. "react-scripts": "5.0.0"
+    11. "web-vitals": "^2.1.4"
+    12. "axios": "^0.26.1"
+    13. "bcrypt": "^5.0.1"
+    14. "cookie-parser": "^1.4.6"
+    15. "cors": "^2.8.5"
+    16. "express": "^4.17.3"
+    17. "jsonwebtoken": "^8.5.1"
+    18. "mongodb": "^4.5.0"
