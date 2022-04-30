@@ -1,8 +1,7 @@
 {
   "name": "a99-rigel",
   "version": "1.0.0",
-  "description": "You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.",
-  "main": "index.js",
+  "description": "For our final project, our team created a full-stack public health survey application",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"cd client && npm start\" \"cd server && node server.js\"",
