@@ -9,14 +9,18 @@ In today's day in age, information is gold. This full-stack web application prov
 ## Demo
 
 ## Try it Out!
-To run our app on your own computer, first make sure you have Node.js and npm installed. Then, clone this repository, and simply run the following script in your terminal:
+To run our app on your own computer, first make sure you have Node.js and npm installed. Then, clone this repository, and simply run the following script in your terminal, which will install all needed dependencies and start the app:
 ```
 npm run startall
 ```
 This app should now be running on your device! It may take a while to load initially, so please be patient. Once it is done, your browser should automatically open the app! 
 
-If that does not happen, try going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall", or else the script will not work!
+If that does not happen, try going to http://localhost:3000/ in your browser. Also, make sure that you were in the root directory of this project when you ran "npm run startall," or else the script will not work!
 
+After all dependencies have been installed, you can test the app by simply running
+```
+npm start
+```
 ## Tech Stack
 
 To take a look at our Tech Stack, [click here](https://github.com/comp426-2022-spring/a99-rigel/blob/main/docs/tech-stack.md).
