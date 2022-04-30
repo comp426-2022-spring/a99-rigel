@@ -4,7 +4,7 @@ Our web app uses React.js for the front-end and Mongo DB for the database. We al
 
 ## Back-end
 
-The back-end connection to the Mongo DB database is in the ```server``` directory: specifically,  ```server/db.js``` and ```server/server.js``` does the heavy lifting to combine the routes created, start the database, and launch the server with Express.
+The back-end connection to the Mongo DB database is in the ```server``` directory. Specifically,  ```server/db.js``` and ```server/server.js``` do the heavy lifting to combine the routes created, start the database, and launch the server with Express.
 
 ## API Endpoints
 
