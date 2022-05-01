@@ -11,6 +11,7 @@ We have provided a couple of scripts to help install and start the web app local
 1. ```npm run startall``` will install all of the dependencies for the project and start up the database and server. 
 2. ```npm run install-all``` will install all of the dependencies for the project.
 3. ``` npm start ``` will start up the database and server (will not work if dependencies aren't installed).
+4. ``` npm test ``` will run a basic test of the app.
 
 Essentially, if you clone this repository and run ```npm run startall``` from the project's root directory, the app should be opened. Of course, make sure you have Node and npm installed on your device before you do this. Hope you enjoy!
 
@@ -57,3 +58,5 @@ We used GroupMe to communicate in real-time with team members. In order to scope
     16. "express": "^4.17.3"
     17. "jsonwebtoken": "^8.5.1"
     18. "mongodb": "^4.5.0"
+    19. "minimist": "^1.2.6"
+    20. "jest": "^28.0.3"

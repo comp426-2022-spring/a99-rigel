@@ -1,10 +1,12 @@
 import express from "express";
 import http from 'http';
 import cors from "cors";
-
+import minimist from "minimist";
 import router from './routes/main.js';
 import setDB from './db.js';
 
+const args = minimist(process.argv.slice(2))
+args["test"]
 const app = express()
 const PORT = process.env.PORT || 5000;
 
@@ -73,4 +75,9 @@ process.on('SIGTERM', cleanup);
 
 app.set('server', http.createServer(app));
 app.get('server').listen(PORT, () => console.log(`Server started on http://localhost:${PORT} successfully...`));
+
+if (args.test) {
+  console.log(`Server tested on port ${PORT} successfully`)
+  process.exit(0)
+}
 export default app;

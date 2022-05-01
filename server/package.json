@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest"
+    "test": "node server.js --test true"
   },
   "author": "rigel",
   "license": "GPL-3.0-or-later",
@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.5.0"
+    "mongodb": "^4.5.0",
+    "minimist": "^1.2.6"
   }
 }
