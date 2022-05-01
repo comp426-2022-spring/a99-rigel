@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import "./styles/Login.css";
 
-class Register extends Component { //Constructor, initialize the fields of this component
+class Register extends Component { //Constructor, initialize the fields of the component
   constructor(props) {
     super(props);
     this.state = {
