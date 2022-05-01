@@ -12,7 +12,7 @@ We have provided a couple of scripts to help install and start the web app local
 2. ```npm run install-all``` will install all of the dependencies for the project.
 3. ``` npm start ``` will start up the database and server (will not work if dependencies aren't installed).
 
-Essentially, if you clone this repository and run ```npm run startall``` from the project's root directory, the app should be opened. Of course, make sure you have Node and npm installed on your device before you do this. Hope you enjoy!
+Essentially, if you clone this repository and run ```npm run startall``` from the project's root directory, the app should be opened. To close the app, use ctrl+C. Of course, make sure you have Node and npm installed on your device before you do this. Hope you enjoy!
 
 ## Demo
 
