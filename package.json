@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A public health survey web application",
   "scripts": {
-    "test": "concurrently \"cd client && npm test\" \"cd server && npm test\" && exit 0",
+    "test": "concurrently \"cd client && npm test\" \"cd server && npm test\"",
     "start": "concurrently \"cd client && npm start\" \"cd server && node server.js\"",
     "install-all": "npm install && cd client && npm install --save --legacy-peer-deps && cd ../server && npm install && cd ../",
     "startall": "npm install && cd client && npm install --save --legacy-peer-deps && cd ../server && npm install && cd ../ && concurrently \"cd client && npm start\" \"cd server && node server.js\""
